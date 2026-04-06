@@ -9,9 +9,8 @@ use Tests\TestCase;
 
 class ProductsTest extends TestCase
 {
-    /**
-     * A basic feature test example.
-     */
+    use RefreshDatabase;
+
     public function test_contains_empty_table(): void
     {
         $response = $this->get('/products');
@@ -27,6 +26,7 @@ class ProductsTest extends TestCase
         ]);
         $response = $this->get('/products');
 
+        $response->assertStatus(200);
         $response->assertDontSee(_('No product found'));
     }
 }

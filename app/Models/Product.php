@@ -2,9 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
-    // bikin migrasi product, connect ke model juga
+    use HasFactory;
+    protected $fillable = ['name', 'price'];
 }

@@ -8,7 +8,12 @@
 </head>
 <body>
     <p>
+        @forelse ($products as $product)
+            {{ $product->name }}
+            {{ $product->price }}
+        @empty
         _('No product found')
+        @endforelse
     </p>
 </body>
 </html>
