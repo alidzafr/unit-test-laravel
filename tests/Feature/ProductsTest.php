@@ -40,4 +40,21 @@ class ProductsTest extends TestCase
             }
         );
     }
+
+    public function test_paginated_product_table_not_contain_11th_record()
+    {
+        // create 11 product
+        $products = Product::factory(11)->create();
+
+        $response = $this->get('/products');
+
+        $response->assertStatus(200);
+
+        // check if html showing only 10 product (pagination)
+        // not contain 11th product
+        $lastProduct = $products->last();
+        $response->assertViewHas('products', function ($collection) use ($lastProduct) {
+            return !$collection->contains($lastProduct);
+        });
+    }
 }
