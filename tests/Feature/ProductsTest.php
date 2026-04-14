@@ -6,29 +6,42 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Symfony\Component\Mime\Part\Multipart\MixedPart;
 use Tests\TestCase;
 
 class ProductsTest extends TestCase
 {
     use RefreshDatabase;
 
+    // setUp() & Private methods
+    // 
+    private User $user;
+
+    protected function setUp(): void
+    {
+        parent::setUp();
+        // custom script create user
+        $this->user = $this->createUser();
+    }
+
+
     public function test_contains_empty_table(): void
     {
-        $user = User::factory()->create();
-        $response = $this->actingAs($user)->get('/products');
+        // $user = $this->createUser();
+        $response = $this->actingAs($this->user)->get('/products');
 
         $response->assertSee(_('No product found'));
     }
 
     public function test_homepage_contains_non_empty_table(): void
     {
-        $user = User::factory()->create();
+        // $user = $this->createUser();
         $product = Product::create([
             'name' => 'abs brake',
             'price' => 123
         ]);
 
-        $response = $this->actingAs($user)->get('/products');
+        $response = $this->actingAs($this->user)->get('/products');
 
         $response->assertStatus(200);
         $response->assertDontSee(_('No product found'));
@@ -46,11 +59,11 @@ class ProductsTest extends TestCase
 
     public function test_paginated_product_table_not_contain_11th_record()
     {
-        $user = User::factory()->create();
+        // $user = $this->createUser();
         // create 11 product
         $products = Product::factory(11)->create();
 
-        $response = $this->actingAs($user)->get('/products');
+        $response = $this->actingAs($this->user)->get('/products');
 
         $response->assertStatus(200);
 
@@ -60,5 +73,11 @@ class ProductsTest extends TestCase
         $response->assertViewHas('products', function ($collection) use ($lastProduct) {
             return !$collection->contains($lastProduct);
         });
+    }
+
+    // Extract Method
+    private function createUser(): mixed
+    {
+        return User::factory()->create();
     }
 }
