@@ -29,7 +29,14 @@ class ProductController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:25|string',
+            'price' => 'required|max:25|string'
+        ]);
+
+        Product::create($validated);
+        return redirect()->route('products.index');
+        // dd($newProduct);
     }
 
     /**

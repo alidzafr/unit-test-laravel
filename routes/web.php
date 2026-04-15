@@ -19,4 +19,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('products/create', [ProductController::class, 'create'])->name('products.create')->middleware('role:owner');
+    Route::post('products', [ProductController::class, 'store'])->name('products.store')->middleware('role:owner');
 });
+
+// Route::resource('products', ProductController::class)->middleware('auth');

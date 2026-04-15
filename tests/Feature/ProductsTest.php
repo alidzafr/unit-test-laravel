@@ -114,6 +114,31 @@ class ProductsTest extends TestCase
         $response->assertStatus(403);
     }
 
+    public function test_create_product_successful()
+    {
+        $ownerRole = Role::create(['name' => 'owner']);
+        $admin = $this->createUser();
+        $admin->assignRole($ownerRole);
+
+        // Insert new product
+        $product = [
+            'name' => 'Product 123',
+            'price' => '100'
+        ];
+
+        $response = $this->actingAs($admin)->post('/products', $product);
+
+        $response->assertStatus(302);
+        $response->assertRedirect('products');
+
+        $this->assertDatabaseHas('products', $product);
+
+        // Check if latest added product on db is same as $product we input
+        $lastProduct = Product::latest()->first();
+        $this->assertEquals($product['name'], $lastProduct['name']);
+        $this->assertEquals($product['price'], $lastProduct['price']);
+    }
+
     // Extract Method
     private function createUser(): mixed
     {
