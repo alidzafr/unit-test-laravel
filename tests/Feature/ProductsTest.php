@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
+use Spatie\Permission\Models\Role;
 use Symfony\Component\Mime\Part\Multipart\MixedPart;
 use Tests\TestCase;
 
@@ -73,6 +74,44 @@ class ProductsTest extends TestCase
         $response->assertViewHas('products', function ($collection) use ($lastProduct) {
             return !$collection->contains($lastProduct);
         });
+    }
+
+    public function test_owner_can_see_create_button()
+    {
+        $ownerRole = Role::create(['name' => 'owner']);
+
+        $admin = $this->createUser();
+        $admin->assignRole($ownerRole);
+        $response = $this->actingAs($admin)->get('/products');
+
+        $response->assertStatus(200);
+        $response->assertSee('Add new product');
+    }
+
+    public function test_non_owner_cannot_see_create_button()
+    {
+        $response = $this->actingAs($this->user)->get('/products');
+
+        $response->assertStatus(200);
+        $response->assertDontSee('Add new product');
+    }
+
+    public function test_owner_can_access_create()
+    {
+        $ownerRole = Role::create(['name' => 'owner']);
+
+        $admin = $this->createUser();
+        $admin->assignRole($ownerRole);
+        $response = $this->actingAs($admin)->get('/products/create');
+
+        $response->assertStatus(200);
+    }
+
+    public function test_non_owner_cannot_access_create()
+    {
+        $response = $this->actingAs($this->user)->get('/products/create');
+
+        $response->assertStatus(403);
     }
 
     // Extract Method

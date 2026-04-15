@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthenticatedSessionController;
+use App\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'viewLogin'])->name('login');
@@ -15,4 +16,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::resource('products', \App\Http\Controllers\ProductController::class)->middleware('auth');
+Route::middleware('auth')->group(function () {
+    Route::get('products', [ProductController::class, 'index'])->name('products.index');
+    Route::get('products/create', [ProductController::class, 'create'])->name('products.create')->middleware('role:owner');
+});

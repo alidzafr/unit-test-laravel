@@ -7,10 +7,19 @@
     <title>Document</title>
 </head>
 <body>
+    @role('owner')
+        <div class="flex">
+            <a href="{{ route('products.create') }}">Add new product</a>
+        </div>
+    @endrole
     <p>
         @forelse ($products as $product)
-            {{ $product->name }}
-            {{ $product->price }}
+            <div>
+                {{ $product->name }}
+            </div>
+            <div>
+                {{ $product->price }}
+            </div>
         @empty
         _('No product found')
         @endforelse
