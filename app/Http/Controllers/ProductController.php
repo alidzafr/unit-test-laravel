@@ -50,17 +50,24 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
+    public function edit(Product $products)
     {
-        //
+        return view('product.edit', ['products' => $products]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, String $id)
     {
-        //
+        $validated = $request->validate([
+            'name' => 'required|max:25|string',
+            'price' => 'required|max:25|string'
+        ]);
+
+        Product::where('id', $id)->update($validated);
+
+        return redirect()->route('products.index');
     }
 
     /**

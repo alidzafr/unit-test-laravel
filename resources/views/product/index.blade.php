@@ -20,6 +20,7 @@
             <div>
                 {{ $product->price }}
             </div>
+            <a href="{{ route('products.edit', $product->id) }}">Edit</a>
         @empty
         _('No product found')
         @endforelse
