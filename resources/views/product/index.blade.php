@@ -20,7 +20,18 @@
             <div>
                 {{ $product->price }}
             </div>
-            <a href="{{ route('products.edit', $product->id) }}">Edit</a>
+            @role('owner')
+                <a href="{{ route('products.edit', $product->id) }}">
+                    Edit
+                </a>
+                <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit">
+                        Delete
+                    </button>
+                </form>
+            @endrole
         @empty
         _('No product found')
         @endforelse

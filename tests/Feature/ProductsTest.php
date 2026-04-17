@@ -151,6 +151,33 @@ class ProductsTest extends TestCase
         $response->assertSee('value="' . $product->price . '"', false);
     }
 
+    public function validation_error_redirect_to_form()
+    {
+        $product = Product::factory()->create();
+
+        $response = $this->actingAs($this->admin)->put('products/edit/' . $product->id, [
+            'name' => '',
+            'price' => ''
+        ]);
+
+        $response->assertStatus(302);
+        $response->assertInvalid(['name', 'price']);
+    }
+
+    public function test_product_delete_successful()
+    {
+        $product = Product::factory()->create();
+
+        $response = $this->actingAs($this->admin)->delete('products/' . $product->id);
+
+        $response->assertStatus(302);
+        $response->assertRedirect('/products');
+
+        $this->assertDatabaseMissing('products', $product->toArray());
+        $this->assertDatabaseCount('products', 0);
+    }
+
+
     // Extract Method
     private function createUser(): mixed
     {

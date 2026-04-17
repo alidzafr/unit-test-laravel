@@ -22,6 +22,7 @@ Route::middleware('auth')->group(function () {
     Route::post('products', [ProductController::class, 'store'])->name('products.store')->middleware('role:owner');
     Route::get('products/edit/{products}', [ProductController::class, 'edit'])->name('products.edit')->middleware('role:owner');
     Route::put('products/update/{products}', [ProductController::class, 'update'])->name('products.update')->middleware('role:owner');
+    Route::delete('products/{products}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('role:owner');
 });
 
 // Route::resource('products', ProductController::class)->middleware('auth');
