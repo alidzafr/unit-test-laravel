@@ -17,12 +17,17 @@ class ProductsTest extends TestCase
     // setUp() & Private methods
     // 
     private User $user;
+    private Role $ownerRole;
+    private User $admin;
 
     protected function setUp(): void
     {
         parent::setUp();
+
         // custom script create user
         $this->user = $this->createUser();
+        $this->ownerRole = Role::create(['name' => 'owner']);
+        $this->admin = $this->createAdmin();
     }
 
 
@@ -78,10 +83,8 @@ class ProductsTest extends TestCase
 
     public function test_owner_can_see_create_button()
     {
-        $ownerRole = Role::create(['name' => 'owner']);
-
         $admin = $this->createUser();
-        $admin->assignRole($ownerRole);
+        $admin->assignRole($this->ownerRole);
         $response = $this->actingAs($admin)->get('/products');
 
         $response->assertStatus(200);
@@ -98,10 +101,8 @@ class ProductsTest extends TestCase
 
     public function test_owner_can_access_create()
     {
-        $ownerRole = Role::create(['name' => 'owner']);
-
         $admin = $this->createUser();
-        $admin->assignRole($ownerRole);
+        $admin->assignRole($this->ownerRole);
         $response = $this->actingAs($admin)->get('/products/create');
 
         $response->assertStatus(200);
@@ -116,9 +117,8 @@ class ProductsTest extends TestCase
 
     public function test_create_product_successful()
     {
-        $ownerRole = Role::create(['name' => 'owner']);
         $admin = $this->createUser();
-        $admin->assignRole($ownerRole);
+        $admin->assignRole($this->ownerRole);
 
         // Insert new product
         $product = [
@@ -139,9 +139,28 @@ class ProductsTest extends TestCase
         $this->assertEquals($product['price'], $lastProduct['price']);
     }
 
+    public function test_product_edit_contains_correct_value()
+    {
+        $product = Product::factory()->create();
+
+        $response = $this->actingAs($this->admin)->get('products/edit/' . $product->id);
+
+        $response->assertStatus(200);
+        // Use false escape for special character (")
+        $response->assertSee('value="' . $product->name . '"', false);
+        $response->assertSee('value="' . $product->price . '"', false);
+    }
+
     // Extract Method
     private function createUser(): mixed
     {
         return User::factory()->create();
+    }
+
+    private function createAdmin(): mixed
+    {
+        $admin = $this->createUser();
+        $admin->assignRole($this->ownerRole);
+        return $admin;
     }
 }
