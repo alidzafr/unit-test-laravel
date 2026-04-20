@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\Api\ProductController as ApiProductCtr;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'viewLogin'])->name('login');
@@ -24,5 +25,8 @@ Route::middleware('auth')->group(function () {
     Route::put('products/update/{products}', [ProductController::class, 'update'])->name('products.update')->middleware('role:owner');
     Route::delete('products/{products}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('role:owner');
 });
+
+Route::get('/api/products/', [ApiProductCtr::class, 'index']);
+Route::post('/api/products/', [ApiProductCtr::class, 'store']);
 
 // Route::resource('products', ProductController::class)->middleware('auth');

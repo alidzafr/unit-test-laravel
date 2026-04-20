@@ -180,10 +180,33 @@ class ProductsTest extends TestCase
     public function test_api_returns_products_list()
     {
         $product = Product::factory()->create();
-        dd($product->name);
         $response = $this->getJson('/api/products');
 
-        $response->assertJson(fn (AssertableJson $json) => $json->where('name', $product->name));
+        $response->assertJson([$product->toArray()]);
+        // dd($response->json());
+    }
+
+    public function test_api_product_store_successful()
+    {
+        $product = [
+            'name' => 'product 1',
+            'price' => '123'
+        ];
+        $response = $this->postJson('/api/products', $product);
+
+        $response->assertStatus(201);
+        $response->assertJson($product);
+    }
+
+    public function test_api_product_invalid_store_returns_error()
+    {
+        $product = [
+            'name' => '',
+            'price' => 123
+        ];
+        $response = $this->postJson('/api/products', $product);
+
+        $response->assertStatus(422);
     }
 
 
