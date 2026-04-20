@@ -177,6 +177,15 @@ class ProductsTest extends TestCase
         $this->assertDatabaseCount('products', 0);
     }
 
+    public function test_api_returns_products_list()
+    {
+        $product = Product::factory()->create();
+        dd($product->name);
+        $response = $this->getJson('/api/products');
+
+        $response->assertJson(fn (AssertableJson $json) => $json->where('name', $product->name));
+    }
+
 
     // Extract Method
     private function createUser(): mixed
