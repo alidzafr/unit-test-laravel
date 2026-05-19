@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Spatie\Permission\Models\Role;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,15 +17,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
+        $ownerRole = Role::create(['name' => 'owner']);
 
-        // User::factory()->create([
-        //     'name' => 'Test User',
-        //     'email' => 'test@example.com',
-        // ]);
-        Product::create([
-            'name' => 'abs brake',
-            'price' => 123
+        $owner = User::create([
+            'name' => 'fany',
+            'email' => 'fany@owner.com',
+            'password' => bcrypt('123456')
         ]);
+
+        $owner->assignRole($ownerRole);
+
+        Product::factory(10)->create();
     }
 }
