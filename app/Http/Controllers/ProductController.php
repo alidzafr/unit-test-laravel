@@ -31,9 +31,16 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:25|string',
-            'price' => 'required|max:25|string'
+            'price' => 'required|max:25|string',
+            'brand' => 'required|max:25',
+            'category' => 'required|max:25',
+            'color' => 'required|max:25',
+            'description' => 'required|max:25',
+            'qty' => 'required|max:25',
+            'status' => 'required|max:25',
+            'image' => 'required|max:25',
         ]);
-
+        dd($validated);
         Product::create($validated);
         return redirect()->route('products.index');
         // dd($newProduct);

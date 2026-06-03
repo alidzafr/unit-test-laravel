@@ -1,11 +1,11 @@
 <x-layout>
     {{-- Card --}}
-    <div class="flex flex-col bg-white border border-gray-200 rounded-2xl">
+    <div class="flex flex-col bg-white w-full border border-gray-200 rounded-2xl">
         @role('owner')
             <div class="flex p-6">
                 <a href="{{ route('products.create') }}"
                     class="btn btn-soft btn-primary">
-                    Add new product
+                    Add new product +
                 </a>
             </div>
         @endrole
@@ -14,13 +14,18 @@
 
         <p>
             <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-            <table class="table table-zebra bg-white">
+            <table class="table table-zebra text-lg bg-white">
                 <!-- head -->
                 <thead>
                     <tr>
                         <th></th>
-                        <th>Name</th>
+                        <th>Products</th>
+                        <th>Brand</th>
+                        <th>Category</th>
                         <th>Price</th>
+                        <th>Stock</th>
+                        <th>Qty</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -32,10 +37,22 @@
                     <td>
                         {{ $product->name }}
                     </td>
+                    <td>-</td>
+                    <td>-</td>
                     <td>
                         {{ $product->price }}
                     </td>
-                    <th class="flex space-x-2">
+                    <td>
+                        <div class="badge badge-soft badge-success">
+                            In-Stock
+                        </div>
+                    </td>
+                    <td>-</td>
+                    <td>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16"><path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/></svg>
+                    </td>
+
+                    {{-- <th class="flex space-x-2">
                         @role('owner')
                         <a href="{{ route('products.edit', $product->id) }}"
                             class="btn btn-soft btn-primary">
@@ -50,7 +67,7 @@
                             </button>
                         </form>
                         @endrole
-                    </th>
+                    </th> --}}
                 </tr>
                 
                 @empty
