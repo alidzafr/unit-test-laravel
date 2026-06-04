@@ -37,19 +37,38 @@
                     <td>
                         {{ $product->name }}
                     </td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>{{ $product->brand }}</td>
+                    <td>{{ $product->category }}</td>
                     <td>
                         {{ $product->price }}
                     </td>
                     <td>
-                        <div class="badge badge-soft badge-success">
+                        {!! $product->qty > 0 ? 
+                        '<div class="badge badge-soft badge-success">
                             In-Stock
-                        </div>
+                        </div>' : 
+                        '<div class="badge badge-soft">
+                            Out of Stock
+                        </div>' 
+                        !!}
+
+                        
                     </td>
-                    <td>-</td>
+                    <td>{{ $product->qty }}</td>
                     <td>
-                        <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16"><path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/></svg>
+                        <div class="dropdown dropdown-bottom dropdown-end">
+                            <div tabindex="0" role="button" class="hover:cursor-pointer">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16"><path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/></svg>
+                            </div>
+                            <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-50 p-4 shadow-sm font-bold">
+                                <li>
+                                    <a href="{{ route('products.edit', $product->id) }}">
+                                        Edit
+                                    </a>
+                                </li>
+                                <li><a>View Detail</a></li>
+                            </ul>
+                        </div>
                     </td>
 
                     {{-- <th class="flex space-x-2">

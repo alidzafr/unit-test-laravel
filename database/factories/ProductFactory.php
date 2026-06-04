@@ -19,7 +19,12 @@ class ProductFactory extends Factory
     {
         return [
             'name' => fake()->text(20),
-            'price' => rand(100, 999)
+            'brand' => fake()->text(12),
+            'category' => fake()->text(8),
+            'color' => fake()->safeColorName(),
+            'description' => fake()->text(32),
+            'price' => rand(100, 999),
+            'qty' => rand(0, 100)
         ];
     }
 }
