@@ -37,8 +37,7 @@ class ProductController extends Controller
             'color' => 'required|max:25',
             'description' => 'required|max:25',
             'qty' => 'required|max:25',
-            'status' => 'required|max:25',
-            'image' => 'required|max:25',
+            'image' => 'max:25',
         ]);
         dd($validated);
         Product::create($validated);

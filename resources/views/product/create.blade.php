@@ -45,7 +45,7 @@
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Price</legend>
                     <input 
-                        name="price" type="text" 
+                        name="price" type="number" 
                         class="input w-2xl" placeholder="Type here"
                     />
                 </fieldset>
@@ -66,7 +66,7 @@
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Stock Quantity</legend>
                     <input 
-                        name="qty" type="text" 
+                        name="qty" type="number" 
                         class="input w-2xl" placeholder="Type here"
                     />
                 {{-- <p class="label">Optional</p> --}}
