@@ -47,7 +47,7 @@
                         '<div class="badge badge-soft badge-success">
                             In-Stock
                         </div>' : 
-                        '<div class="badge badge-soft">
+                        '<div class="badge badge-soft badge-error">
                             Out of Stock
                         </div>' 
                         !!}
@@ -55,8 +55,12 @@
                         
                     </td>
                     <td>{{ $product->qty }}</td>
+                    
+                    @role('owner')
                     <td>
-                        <div class="dropdown dropdown-bottom dropdown-end">
+                        <div class="dropdown 
+                            {{ $loop->iteration < 7 ? 'dropdown-bottom' : 'dropdown-top' }}
+                            dropdown-end">
                             <div tabindex="0" role="button" class="hover:cursor-pointer">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="currentColor" class="bi bi-three-dots" viewBox="0 0 16 16"><path d="M3 9.5a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3m5 0a1.5 1.5 0 1 1 0-3 1.5 1.5 0 0 1 0 3"/></svg>
                             </div>
@@ -66,27 +70,19 @@
                                         Edit
                                     </a>
                                 </li>
-                                <li><a>View Detail</a></li>
+                                <li>
+                                    <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                        @method('DELETE')
+                                        @csrf
+                                        <button>
+                                            Delete
+                                        </button>
+                                    </form>
+                                </li>
                             </ul>
                         </div>
                     </td>
-
-                    {{-- <th class="flex space-x-2">
-                        @role('owner')
-                        <a href="{{ route('products.edit', $product->id) }}"
-                            class="btn btn-soft btn-primary">
-                            Edit
-                        </a>
-                        <form action="{{ route('products.destroy', $product->id) }}" method="POST">
-                            @method('DELETE')
-                            @csrf
-                            <button type="submit"
-                                class="btn btn-soft btn-error">
-                                Delete
-                            </button>
-                        </form>
-                        @endrole
-                    </th> --}}
+                    @endrole
                 </tr>
                 
                 @empty

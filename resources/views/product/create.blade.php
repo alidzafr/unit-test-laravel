@@ -71,15 +71,6 @@
                     />
                 {{-- <p class="label">Optional</p> --}}
                 </fieldset>
-
-                <fieldset class="fieldset">
-                    <legend class="fieldset-legend">Avaibility Status</legend>
-                    <input 
-                        name="status" type="text" 
-                        class="input w-2xl" placeholder="Type here"
-                    />
-                {{-- <p class="label">Optional</p> --}}
-                </fieldset>
             </div>
 
         </div>
