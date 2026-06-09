@@ -1,5 +1,5 @@
 <x-layout>
-    <form method="POST" action="{{ route('products.store') }}">
+    <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
         @csrf
         {{-- Desc --}}
         <div class="p-8 mb-8 bg-white w-full border border-gray-200 rounded-2xl">
@@ -26,12 +26,18 @@
             <div class="flex mb-4">
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Category</legend>
-                    <input 
+                    {{-- <input 
                         name="category" type="text" 
                         class="input w-2xl" placeholder="Type here"
-                    />
+                    /> --}}
+                    <select name="category_id" class="select w-2xl">
+                        <option disabled selected>Pick a category</option>
+                        <option value="1">Crimson</option>
+                        <option value="2">Amber</option>
+                        <option value="3">Velvet</option>
+                    </select>
                 </fieldset>
-
+                
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Color</legend>
                     <input 
@@ -79,9 +85,8 @@
         <div class="p-8 mb-8 bg-white w-full border border-gray-200 rounded-2xl">
             <h3 class="mb-2 text-lg font-bold">Upload Image</h3>
             <div class="flex justify-center">
-                <input name="image" type="file" class="file-input file-input-neutral" />
+                <input name="photo" type="file" class="file-input file-input-neutral" />
             </div>
-
         </div>
         <button type="submit" class="btn btn-primary mt-2">Save</button>
     </form>
