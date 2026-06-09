@@ -69,13 +69,16 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                        <a href="{{ route('products.show') }}">
+                                            View Detail
+                                        </a>
+                                        {{-- <form action="{{ route('products.destroy', $product->id) }}" method="POST">
                                             @method('DELETE')
                                             @csrf
                                             <button>
                                                 Delete
                                             </button>
-                                        </form>
+                                        </form> --}}
                                     </li>
                                 </ul>
                             </div>
