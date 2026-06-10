@@ -20,7 +20,7 @@ class ProductFactory extends Factory
         return [
             'name' => fake()->text(20),
             'brand' => fake()->text(12),
-            'category' => fake()->text(8),
+            'category_id' => rand(1, 10),
             'color' => fake()->safeColorName(),
             'description' => fake()->text(32),
             'price' => rand(100, 999),
