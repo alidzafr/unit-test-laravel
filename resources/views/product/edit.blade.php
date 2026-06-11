@@ -5,6 +5,17 @@
         {{-- Desc --}}
         <div class="p-8 mb-8 bg-white w-full border border-gray-200 rounded-2xl">
             <h3 class="mb-2 text-lg font-bold">Product Description</h3>
+            
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+            
             <div class="flex mb-4">
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Name</legend>
@@ -28,11 +39,19 @@
             <div class="flex mb-4">
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Category</legend>
-                    <input
-                        value="{{ $products->category }}"
-                        name="category" type="text" 
-                        class="input w-2xl" placeholder="Type here"
-                    />
+                    <select name="category_id" class="select w-2xl">
+                        <option value="{{ $products->category_id }}">
+                            {{ $products->category->name }}
+                        </option>
+                        @foreach ($categories as $category)
+                            @if ($category->id == $products->category_id)
+                                @continue {{-- Skips the rest of the loop for this specific item --}}
+                            @endif
+                            <option value="{{ $category->id }}">
+                                {{ $category->name }}
+                            </option>
+                        @endforeach
+                    </select>
                 </fieldset>
 
                 <fieldset class="fieldset">
@@ -87,6 +106,7 @@
         {{-- Upload --}}
         <div class="p-8 mb-8 bg-white w-full border border-gray-200 rounded-2xl">
             <h3 class="mb-2 text-lg font-bold">Upload Image</h3>
+            <img src="{{Storage::url(($products->photo))}}" alt ="album">
             <div class="flex justify-center">
                 <input name="image" type="file" class="file-input file-input-neutral" />
             </div>

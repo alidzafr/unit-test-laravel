@@ -34,8 +34,13 @@
                     <!-- row 1 -->
                     <tr>
                         <th>{{ $loop->iteration }}</th>
-                        <td>
-                            {{ $product->name }}
+                        <td class="flex space-x-2">
+                            <span>
+                                <img src="{{Storage::url(($product->photo))}}" alt ="album" class="w-16">
+                            </span>
+                            <div>
+                                {{ $product->name }}
+                            </div>
                         </td>
                         <td>{{ $product->brand }}</td>
                         <td>{{ $product->category->name }}</td>

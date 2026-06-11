@@ -25,7 +25,7 @@
                 {{-- Description --}}
                 <h1 class="font-bold">Description</h1>
                 <div class="my-4">
-                    <span>Lorem ipsum dolor sit amet consectetur adipisicing elit. Magni officiis similique expedita odio blanditiis ipsum hic minus eligendi nisi exercitationem?</span>
+                    <span>{{ $product->description }}</span>
                 </div>
 
             </div>

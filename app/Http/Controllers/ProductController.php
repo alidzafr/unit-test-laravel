@@ -89,28 +89,50 @@ class ProductController extends Controller
      */
     public function edit(Product $products)
     {
-        return view('product.edit', ['products' => $products]);
+        $categories = Category::all();
+        return view('product.edit', [
+            'products' => $products,
+            'categories' => $categories
+        ]);
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, String $id)
+    public function update(Request $request, Product $products)
     {
         $validated = $request->validate([
             'name' => 'required|max:25|string',
-            'price' => 'required|max:25|string',
-            'brand' => 'required|max:25',
-            'category' => 'required|max:25',
-            'color' => 'required|max:25',
+            'price' => 'required|max:1000000|integer',
+            'brand' => 'required|max:25|string',
+            'category_id' => 'required|max:1000|integer',
+            'color' => 'required|max:25|string',
             'description' => 'required|max:1000|string',
-            'qty' => 'required|max:25',
-            'image' => 'max:25',
+            'qty' => 'required|max:1000000|integer',
+            'photo' => 'sometimes|image|mimes:png,jpg,svg'
         ]);
 
-        Product::where('id', $id)->update($validated);
+        DB::beginTransaction();
 
-        return redirect()->route('products.index');
+        try {
+            if ($request->hasFile('photo')) {
+                $productPath = $request->file('photo')->store('product_photos', 'public');
+                $validated['photo'] = $productPath;
+            }
+            // Slug nama
+            $products->update($validated);
+
+            DB::commit();
+
+            return redirect()->route('products.index');
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            $error = ValidationException::withMessages([
+                'system_error' => ['System error!' . $e->getMessage()],
+            ]);
+            throw $error;
+        }
     }
 
     /**
