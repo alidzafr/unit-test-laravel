@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string('description')->nullable();
             $table->decimal('price', 8, 2);
             $table->unsignedBigInteger('qty');
-            $table->string('image')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }

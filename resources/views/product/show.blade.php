@@ -32,9 +32,8 @@
             {{-- Picture --}}
             <div class="flex flex-col item-center justify-center w-2xs">
                 <div class="flex justify-center mb-4">
-                    <img 
-                        src="https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp" alt="Album" 
-                    />
+                    <img src="{{Storage::url(($product->photo))}}" 
+                    alt ="album">
                 </div>
                 <div class="flex justify-between mb-4">
                     <div class="flex flex-col text-gray-600">

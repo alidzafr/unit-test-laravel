@@ -16,7 +16,7 @@ class ProductController extends Controller
      */
     public function index()
     {
-        
+
         $products = Product::with('category')->orderBy('id', 'DESC')->paginate(10);
         return view('product.index', compact('products'));
     }
@@ -49,9 +49,9 @@ class ProductController extends Controller
         DB::beginTransaction();
 
         try {
-            if ($request->hasFile('image')) {
-                $imagePath = $request->file('image')->store('product_photos', 'public');
-                $validated['image'] = $imagePath;
+            if ($request->hasFile('photo')) {
+                $photoPath = $request->file('photo')->store('product_photos', 'public');
+                $validated['photo'] = $photoPath;
             }
             $validated['slug'] = Str::slug($request->name);
             // slug product
@@ -78,7 +78,7 @@ class ProductController extends Controller
     {
         $cat_id = $products->category_id;
         $category = Category::findOrFail($cat_id);
-        
+
         return view('product.show', [
             'product' => $products
         ]);
@@ -89,7 +89,6 @@ class ProductController extends Controller
      */
     public function edit(Product $products)
     {
-        dd($products);
         return view('product.edit', ['products' => $products]);
     }
 

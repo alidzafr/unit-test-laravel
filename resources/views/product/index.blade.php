@@ -72,13 +72,15 @@
                                         <a href="{{ route('products.show', $product->id) }}">
                                             View Detail
                                         </a>
-                                        {{-- <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                                    </li>
+                                    <li>
+                                        <form action="{{ route('products.destroy', $product->id) }}" method="POST">
                                             @method('DELETE')
                                             @csrf
                                             <button>
                                                 Delete
                                             </button>
-                                        </form> --}}
+                                        </form>
                                     </li>
                                 </ul>
                             </div>

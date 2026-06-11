@@ -8,7 +8,7 @@
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Name</legend>
                     <input 
-                        name="name" type="text" 
+                        name="name" type="text" :value="old('name')"
                         class="input w-2xl" placeholder="Type here"
                     />
                 {{-- <p class="label">Optional</p> --}}
@@ -17,7 +17,7 @@
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Brand</legend>
                     <input 
-                        name="brand" type="text" 
+                        name="brand" type="text" :value="old('brand')"
                         class="input w-2xl" placeholder="Type here"
                     />
                 </fieldset>
@@ -37,7 +37,7 @@
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Color</legend>
                     <input 
-                        name="color" type="text" 
+                        name="color" type="text" :value="old('color')"
                         class="input w-2xl" placeholder="Type here"
                     />
                 </fieldset>
@@ -47,7 +47,7 @@
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Price</legend>
                     <input 
-                        name="price" type="number" 
+                        name="price" type="number" :value="old('price')"
                         class="input w-2xl" placeholder="Type here"
                     />
                 </fieldset>
@@ -68,7 +68,7 @@
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Stock Quantity</legend>
                     <input 
-                        name="qty" type="number" 
+                        name="qty" type="number" :value="old('qty')"
                         class="input w-2xl" placeholder="Type here"
                     />
                 {{-- <p class="label">Optional</p> --}}
@@ -81,7 +81,7 @@
         <div class="p-8 mb-8 bg-white w-full border border-gray-200 rounded-2xl">
             <h3 class="mb-2 text-lg font-bold">Upload Image</h3>
             <div class="flex justify-center">
-                <input name="photo" type="file" class="file-input file-input-neutral" />
+                <input name="photo" type="file" :value="old('photo')" class="file-input file-input-neutral" />
             </div>
         </div>
         <button type="submit" class="btn btn-primary mt-2">Save</button>
