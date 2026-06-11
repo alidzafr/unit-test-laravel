@@ -20,7 +20,7 @@ Route::get('/', function () {
 Route::middleware('auth')->group(function () {
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('products/create', [ProductController::class, 'create'])->name('products.create')->middleware('role:owner');
-    Route::get('products/detail', [ProductController::class, 'show'])->name('products.show')->middleware('role:owner');
+    Route::get('products/detail/{products}', [ProductController::class, 'show'])->name('products.show')->middleware('role:owner');
     Route::post('products', [ProductController::class, 'store'])->name('products.store')->middleware('role:owner');
     Route::get('products/edit/{products}', [ProductController::class, 'edit'])->name('products.edit')->middleware('role:owner');
     Route::put('products/update/{products}', [ProductController::class, 'update'])->name('products.update')->middleware('role:owner');

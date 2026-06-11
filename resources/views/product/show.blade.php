@@ -15,11 +15,11 @@
                         <span>Price</span>
                     </div>
                     <div class="flex flex-col space-y-2">
-                        <span>Susi</span>
-                        <span>susimas</span>
-                        <span>Food</span>
-                        <span>Black, Cyan, Rose Gold</span>
-                        <span>5000</span>
+                        <span>{{ $product->name }}</span>
+                        <span>{{ $product->brand  }}</span>
+                        <span>{{ $product->category->name }}</span>
+                        <span>{{ $product->color }}</span>
+                        <span>{{ $product->price }}</span>
                     </div>
                 </div>
                 {{-- Description --}}
@@ -32,9 +32,8 @@
             {{-- Picture --}}
             <div class="flex flex-col item-center justify-center w-2xs">
                 <div class="flex justify-center mb-4">
-                    <img
-                    src="https://img.daisyui.com/images/stock/photo-1635805737707-575885ab0820.webp"
-                    class="max-w-sm rounded-lg shadow-2xl"
+                    <img 
+                        src="https://img.daisyui.com/images/stock/photo-1494232410401-ad00d5433cfa.webp" alt="Album" 
                     />
                 </div>
                 <div class="flex justify-between mb-4">
@@ -43,8 +42,15 @@
                         <span>Status</span>
                     </div>
                     <div class="flex flex-col">
-                        <span>86</span>
-                        <span>In-Stock</span>
+                        <span>{{ $product->qty }}</span>
+                        {!! $product->qty > 0 ? 
+                            '<div class="badge badge-soft badge-success">
+                                In-Stock
+                            </div>' : 
+                            '<div class="badge badge-soft badge-error">
+                                Out of Stock
+                            </div>' 
+                        !!}
                     </div>
                 </div>
 

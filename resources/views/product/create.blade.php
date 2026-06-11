@@ -26,15 +26,11 @@
             <div class="flex mb-4">
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Category</legend>
-                    {{-- <input 
-                        name="category" type="text" 
-                        class="input w-2xl" placeholder="Type here"
-                    /> --}}
                     <select name="category_id" class="select w-2xl">
                         <option disabled selected>Pick a category</option>
-                        <option value="1">Crimson</option>
-                        <option value="2">Amber</option>
-                        <option value="3">Velvet</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
                     </select>
                 </fieldset>
                 

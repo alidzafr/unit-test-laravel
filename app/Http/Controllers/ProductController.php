@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Product;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -15,7 +16,8 @@ class ProductController extends Controller
      */
     public function index()
     {
-        $products = Product::paginate(10);
+        
+        $products = Product::with('category')->orderBy('id', 'DESC')->paginate(10);
         return view('product.index', compact('products'));
     }
 
@@ -24,7 +26,8 @@ class ProductController extends Controller
      */
     public function create()
     {
-        return view('product.create');
+        $categories = Category::all();
+        return view('product.create', compact('categories'));
     }
 
     /**
@@ -43,7 +46,6 @@ class ProductController extends Controller
             'qty' => 'required|max:1000000|integer',
             'photo' => 'required|image|mimes:png,jpg,svg'
         ]);
-        dd($validated);
         DB::beginTransaction();
 
         try {
@@ -72,9 +74,14 @@ class ProductController extends Controller
      * Display the specified resource.
      */
     // public function show(string $id)
-    public function show()
+    public function show(Product $products)
     {
-        return view('product.show');
+        $cat_id = $products->category_id;
+        $category = Category::findOrFail($cat_id);
+        
+        return view('product.show', [
+            'product' => $products
+        ]);
     }
 
     /**
@@ -82,6 +89,7 @@ class ProductController extends Controller
      */
     public function edit(Product $products)
     {
+        dd($products);
         return view('product.edit', ['products' => $products]);
     }
 

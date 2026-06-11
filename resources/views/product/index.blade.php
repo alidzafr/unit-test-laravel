@@ -38,7 +38,7 @@
                             {{ $product->name }}
                         </td>
                         <td>{{ $product->brand }}</td>
-                        <td>{{ $product->category }}</td>
+                        <td>{{ $product->category->name }}</td>
                         <td>
                             {{ $product->price }}
                         </td>
@@ -69,7 +69,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="{{ route('products.show') }}">
+                                        <a href="{{ route('products.show', $product->id) }}">
                                             View Detail
                                         </a>
                                         {{-- <form action="{{ route('products.destroy', $product->id) }}" method="POST">

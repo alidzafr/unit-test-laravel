@@ -18,4 +18,9 @@ class Product extends Model
         'qty',
         'image'
     ];
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
