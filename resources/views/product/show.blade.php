@@ -1,6 +1,9 @@
 <x-layout>
+    <div class="flex mb-4 justify-end">
+        <a class="btn btn-neutral btn-outline" href="{{ route('products.edit', $product->id) }}">Edit</a>
+    </div>
     <div class="p-8 mb-8 bg-white w-full border border-gray-200 rounded-2xl">
-        <h3 class="mb-2 text-lg font-bold">Product Detail</h3>
+        <h3 class="mb-2 text-lg font-bold">{{ $product->name }}</h3>
         <div class="flex p-4 mb-4 justify-between">
             {{-- Overview --}}
             <div class="flex flex-col w-4xl">
@@ -40,13 +43,13 @@
                         <span>Stock avaibility</span>
                         <span>Status</span>
                     </div>
-                    <div class="flex flex-col">
+                    <div class="flex flex-col items-center">
                         <span>{{ $product->qty }}</span>
                         {!! $product->qty > 0 ? 
-                            '<div class="badge badge-soft badge-success">
+                            '<div class="badge badge-outline badge-success">
                                 In-Stock
                             </div>' : 
-                            '<div class="badge badge-soft badge-error">
+                            '<div class="badge badge-outline badge-error">
                                 Out of Stock
                             </div>' 
                         !!}

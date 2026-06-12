@@ -38,7 +38,7 @@ class ProductController extends Controller
         // dd($request);
         $validated = $request->validate([
             'name' => 'required|max:25|string',
-            'price' => 'required|max:1000000|integer',
+            'price' => 'required|max:1000000|numeric',
             'brand' => 'required|max:25|string',
             'category_id' => 'required|max:1000|integer',
             'color' => 'required|max:25|string',
@@ -103,7 +103,7 @@ class ProductController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:25|string',
-            'price' => 'required|max:1000000|integer',
+            'price' => 'required|max:1000000|numeric',
             'brand' => 'required|max:25|string',
             'category_id' => 'required|max:1000|integer',
             'color' => 'required|max:25|string',
@@ -124,7 +124,7 @@ class ProductController extends Controller
 
             DB::commit();
 
-            return redirect()->route('products.index');
+            return redirect()->route('products.show', $products->id);
         } catch (\Exception $e) {
             DB::rollBack();
 

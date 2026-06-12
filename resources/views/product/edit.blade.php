@@ -1,19 +1,51 @@
 <x-layout>
+    <!-- You can open the modal using ID.showModal() method -->
+    <div class="flex mb-4 justify-end">
+        <button class="btn btn-outline btn-error" onclick="my_modal_3.showModal()">Delete</button>
+        <dialog id="my_modal_3" class="modal">
+          <div class="modal-box">
+            <form method="dialog">
+              <button class="btn btn-sm btn-circle btn-ghost absolute right-2 top-2">✕</button>
+            </form>
+            <h3 class="text-lg font-bold">Delete Confirm</h3>
+            <p class="py-4">Are you sure want to delete this product ?</p>
+            <div class="flex justify-center space-x-2">
+                <form action="{{ route('products.destroy', $products->id) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <button class="btn btn-accent">
+                        Yes
+                    </button>
+                </form>   
+                <form method="dialog">
+                    <button class="btn btn-error">
+                        No
+                    </button>
+                </form>
+            </div>
+          </div>
+        </dialog>
+        
+    </div>
+        
     <form method="POST" action="{{ route('products.update', $products->id) }}">
         @method("PUT")
         @csrf
         {{-- Desc --}}
         <div class="p-8 mb-8 bg-white w-full border border-gray-200 rounded-2xl">
-            <h3 class="mb-2 text-lg font-bold">Product Description</h3>
+            <h3 class="mb-2 text-lg font-bold">{{ $products->name }}</h3>
             
             @if ($errors->any())
-                <div class="alert alert-danger">
-                    <ul>
-                        @foreach ($errors->all() as $error)
-                            <li>{{ $error }}</li>
-                        @endforeach
-                    </ul>
-                </div>
+            <div role="alert" class="alert alert-error">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 shrink-0 stroke-current" fill="none" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                </svg>
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
             @endif
             
             <div class="flex mb-4">
