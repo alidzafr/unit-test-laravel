@@ -2,7 +2,24 @@
     {{-- Card --}}
     <div class="flex flex-col bg-white w-full border border-gray-200 rounded-2xl">
         @role('owner')
-            <div class="flex p-6">
+            <div class="flex p-6 justify-between">
+                <form>
+                    <div class="join">
+                        <label class="input">
+                            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <g stroke-linejoin="round"
+                                stroke-linecap="round" stroke-width="2.5"
+                                fill="none" stroke="currentColor">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.3-4.3"></path>
+                                </g>
+                            </svg>
+                            <input name="search" type="search" required placeholder="Type here" autocomplete="off"/>
+                        </label>
+                        <button class="btn btn-neutral join-item">Search</button>
+                    </div>
+                </form>
+
                 <a href="{{ route('products.create') }}"
                     class="btn btn-soft btn-primary">
                     Add new product +
@@ -100,14 +117,8 @@
                 </table>
 
                 {{-- Pagination radio --}}
-                <div class="border-t border-gray-200 flex p-4 justify-center">
-                    <div class="join">
-                        <input class="join-item btn btn-lg btn-square" type="radio" name="options" aria-label="1"
-                            checked="checked" />
-                        <input class="join-item btn btn-lg btn-square checked:bg-red-200" type="radio" name="options" aria-label="2" />
-                        <input class="join-item btn btn-lg btn-square" type="radio" name="options" aria-label="3" />
-                        <input class="join-item btn btn-lg btn-square" type="radio" name="options" aria-label="4" />
-                    </div>
+                <div class="p-6">
+                    {{ $products->links() }}
                 </div>
             </div>
         </p>

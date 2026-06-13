@@ -16,9 +16,16 @@ class ProductController extends Controller
      */
     public function index()
     {
+        $products = Product::latest();
 
-        $products = Product::with('category')->orderBy('id', 'DESC')->paginate(10);
-        return view('product.index', compact('products'));
+        if (request('search')) {
+            $products->where('name', 'like', '%' . request('search') . '%');
+        }
+
+        // $products = Product::with('category')->orderBy('id', 'DESC')->paginate(10)->withQueryString();
+        return view('product.index', [
+            'products' => $products->paginate(10)->withQueryString()
+        ]);
     }
 
     /**
