@@ -14,18 +14,15 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $products = Product::latest();
+        // Scope Filter
+        $products = Product::filter()
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
 
-        if (request('search')) {
-            $products->where('name', 'like', '%' . request('search') . '%');
-        }
-
-        // $products = Product::with('category')->orderBy('id', 'DESC')->paginate(10)->withQueryString();
-        return view('product.index', [
-            'products' => $products->paginate(10)->withQueryString()
-        ]);
+        return view('product.index', compact('products'));
     }
 
     /**
