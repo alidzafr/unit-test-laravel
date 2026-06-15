@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Category;
 use App\Models\Product;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
@@ -20,7 +21,7 @@ class ProductFactory extends Factory
         return [
             'name' => fake()->text(20),
             'brand' => fake()->text(12),
-            'category_id' => rand(1, 10),
+            'category_id' => Category::factory(),
             'color' => fake()->safeColorName(),
             'description' => fake()->text(32),
             'price' => rand(100, 999),
