@@ -18,6 +18,8 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
+    Route::get('products/categories/{category:slug}', [ProductController::class, 'category'])->name('products.category');
+
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('products/create', [ProductController::class, 'create'])->name('products.create')->middleware('role:owner');
     Route::get('products/detail/{products}', [ProductController::class, 'show'])->name('products.show')->middleware('role:owner');

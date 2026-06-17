@@ -4,6 +4,9 @@
         @role('owner')
             <div class="flex p-6 justify-between">
                 <form>
+                    @if (request('category'))
+                        <input type="hidden" name="category" value="{{ request('category') }}">
+                    @endif
                     <div class="join">
                         <label class="input">
                             <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
@@ -38,7 +41,25 @@
                             <th></th>
                             <th>Products</th>
                             <th>Brand</th>
-                            <th>Category</th>
+                            <th>
+                                <div class="dropdown dropdown-hover">
+                                    <div tabindex="0" role="button" class="flex items-center space-x-2">
+                                        <span>Category</span>
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16"><path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5z"/></svg>
+                                    </div>
+                                    <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
+                                        @forelse ($categories as $category)
+                                        <li>
+                                            <a href="/products?category={{ $category->slug }}">
+                                                {{ $category->name }}
+                                            </a>
+                                        </li>
+                                        @empty
+                                        <li>-</li>
+                                        @endforelse
+                                    </ul>
+                                </div>
+                            </th>
                             <th>Price</th>
                             <th>Stock</th>
                             <th>Qty</th>

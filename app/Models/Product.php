@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Product extends Model
 {
@@ -28,8 +29,20 @@ class Product extends Model
 
     #[Scope]
     // protected function filter(Builder $query, array $filters): void
-    protected function filter(Builder $query): void
+    protected function filter(Builder $query, array $filters): void
     {
-        $query->where('name', 'like', '%' . request('search') . '%');
+        $query->when(
+            $filters['search'] ?? false, 
+            fn ($query, $search) =>
+            $query->where('name', 'like', '%' . $search . '%')
+        );
+        
+        $query->when(
+            $filters['category'] ?? false, 
+            fn ($query, $category) =>
+            $query->whereHas('category', fn ($query) => $query->where(
+                'slug', $category
+            ))
+        );
     }
 }

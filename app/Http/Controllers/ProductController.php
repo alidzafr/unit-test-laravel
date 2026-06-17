@@ -14,15 +14,28 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function category(Category $category)
     {
+        $categories = Category::all();
         // Scope Filter
-        $products = Product::filter()
+        $products = $category->products()
         ->latest()
         ->paginate(10)
         ->withQueryString();
 
-        return view('product.index', compact('products'));
+        return view('product.index', compact('categories', 'products'));
+    }
+
+    public function index(Request $request)
+    {
+        $categories = Category::all();
+        // Scope Filter
+        $products = Product::filter(request(['search', 'category']))
+        ->latest()
+        ->paginate(10)
+        ->withQueryString();
+
+        return view('product.index', compact('categories', 'products'));
     }
 
     /**
