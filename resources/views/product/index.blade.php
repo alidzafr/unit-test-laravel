@@ -1,8 +1,16 @@
 <x-layout>
+    {{-- Top row title --}}
+    <div class="flex my-4 w-full justify-end">
+        <a href="{{ route('products.create') }}"
+            class="btn btn-primary">
+            Add new product +
+        </a>
+    </div>
     {{-- Card --}}
     <div class="flex flex-col bg-white w-full border border-gray-200 rounded-2xl">
         @role('owner')
-            <div class="flex p-6 justify-between">
+            <div class="flex p-4 justify-end space-x-4">
+                {{-- Search Bar --}}
                 <form>
                     @if (request('category'))
                         <input type="hidden" name="category" value="{{ request('category') }}">
@@ -19,47 +27,46 @@
                             </svg>
                             <input name="search" type="search" required placeholder="Type here" autocomplete="off"/>
                         </label>
-                        <button class="btn btn-neutral join-item">Search</button>
+                        <button class="btn btn-ghost border border-gray-300 join-item">Search</button>
                     </div>
                 </form>
-
-                <a href="{{ route('products.create') }}"
-                    class="btn btn-soft btn-primary">
-                    Add new product +
-                </a>
+                {{-- Category tab --}}
+                <div class="dropdown dropdown-left">
+                    <div tabindex="0" role="button" class="btn btn-ghost border border-gray-300">
+                        <span>Category</span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16"><path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5z"/></svg>
+                    </div>
+                    <div
+                        tabindex="0"
+                        class="dropdown-content card card-sm bg-base-100 z-1 w-64 shadow-md">
+                        <div class="card-body list-none">
+                        {{-- <p>This is a card. You can use any element as a dropdown.</p> --}}
+                        @forelse ($categories as $category)
+                        <li>
+                            <a href="/products?category={{ $category->slug }}">
+                                {{ $category->name }}
+                            </a>
+                        </li>
+                        @empty
+                        <li>-</li>
+                        @endforelse
+                        </div>
+                    </div>
+                </div>
+                
             </div>
         @endrole
         
-        <div class="mb-2 border-b-2 border-gray-200"></div>
-
         <p>
-            <div class="overflow-x-auto rounded-box border border-base-content/5 bg-base-100">
-                <table class="table table-zebra text-lg bg-white">
+            <div class="overflow-x-auto">
+                <table class="table-zebra w-full border-collapse text-left text-lg bg-white">
                     <!-- head -->
                     <thead>
-                        <tr>
+                        <tr class="border-y border-gray-200">
                             <th></th>
-                            <th>Products</th>
+                            <th class="py-4">Products</th>
                             <th>Brand</th>
-                            <th>
-                                <div class="dropdown dropdown-hover">
-                                    <div tabindex="0" role="button" class="flex items-center space-x-2">
-                                        <span>Category</span>
-                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-funnel-fill" viewBox="0 0 16 16"><path d="M1.5 1.5A.5.5 0 0 1 2 1h12a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-.128.334L10 8.692V13.5a.5.5 0 0 1-.342.474l-3 1A.5.5 0 0 1 6 14.5V8.692L1.628 3.834A.5.5 0 0 1 1.5 3.5z"/></svg>
-                                    </div>
-                                    <ul tabindex="-1" class="dropdown-content menu bg-base-100 rounded-box z-1 w-52 p-2 shadow-sm">
-                                        @forelse ($categories as $category)
-                                        <li>
-                                            <a href="/products?category={{ $category->slug }}">
-                                                {{ $category->name }}
-                                            </a>
-                                        </li>
-                                        @empty
-                                        <li>-</li>
-                                        @endforelse
-                                    </ul>
-                                </div>
-                            </th>
+                            <th>Category</th>
                             <th>Price</th>
                             <th>Stock</th>
                             <th>Qty</th>
@@ -70,13 +77,13 @@
                         
                     @forelse ($products as $product)
                     <!-- row 1 -->
-                    <tr>
-                        <th>{{ $loop->iteration }}</th>
+                    <tr class="border-y border-gray-200">
+                        <th class="ps-4">{{ $loop->iteration }}</th>
                         <td class="flex space-x-2">
                             <span>
                                 <img src="{{Storage::url(($product->photo))}}" alt ="album" class="w-16">
                             </span>
-                            <div>
+                            <div class="py-4">
                                 {{ $product->name }}
                             </div>
                         </td>
