@@ -1,19 +1,13 @@
 <x-layout>
     {{-- Top row title --}}
-    <div class="flex mb-4 w-full justify-between items-center">
-        <div>
-            <div class="breadcrumbs text-sm">
-                <ul>
-                    <li><a>Home</a></li>
-                    <li>Product List</li>
-                </ul>
-            </div>
-            <div class="prose"><h1>
+    <div class="flex mb-8 w-full justify-between items-center">
+        <div class="prose">
+            <h1>
                 Products
-            </h1></div>
+            </h1>
         </div>
         <a href="{{ route('products.create') }}"
-            class="btn btn-primary">
+            class="btn bg-primary text-white hover:bg-primary/75 rounded-lg">
             Add new product +
         </a>
     </div>
@@ -119,38 +113,31 @@
                         
                         @role('owner')
                         <td>
-                            <div class="dropdown dropdown-bottom dropdown-end">
+                            <div class="dropdown dropdown-left dropdown-center">
                                 <div tabindex="0" role="button" class="hover:cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16"><path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/></svg>
                                 </div>
-                              <div
-                                tabindex="0"
-                                class="dropdown-content card card-sm bg-base-100 z-1 w-48 shadow-md">
-                                <div class="card-body list-none">
-                                    <li class="p-2 hover:bg-gray-100">
-                                        <a href="{{ route('products.edit', $product->id) }}"
-                                            class="hover:cursor-pointer">
+                                <ul tabindex="-1" class="menu text-sm dropdown-content bg-base-100 rounded-box border border-gray-200 z-1 w-36 shadow-md">
+                                    <li>
+                                        <a href="{{ route('products.edit', $product->id) }}">
                                             Edit
                                         </a>
                                     </li>
-                                    <li class="p-2 hover:bg-gray-100">
-                                        <a href="{{ route('products.show', $product->id) }}"
-                                            class="hover:cursor-pointer">
+                                    <li>
+                                        <a href="{{ route('products.show', $product->id) }}">
                                             View Detail
                                         </a>
                                     </li>
-                                    <li class="p-2 hover:bg-gray-100">
+                                    <li>
                                         <form action="{{ route('products.destroy', $product->id) }}" method="POST">
                                             @method('DELETE')
                                             @csrf
-                                            <button 
-                                            class="hover:cursor-pointer">
+                                            <button>
                                                 Delete
                                             </button>
                                         </form>
                                     </li>
-                                </div>
-                              </div>
+                                </ul>
                             </div>
                         </td>
                         @endrole
