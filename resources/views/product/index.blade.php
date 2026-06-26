@@ -58,6 +58,12 @@
                         </div>
                     </div>
                 </div>
+                {{-- Clear Category --}}
+                @if (request()->query('category') > 0)
+                <a href="{{ request()->fullUrlWithoutQuery(['category']) }}" class="btn btn-soft btn-error">
+                    Remove Category Filter
+                </a>
+                @endif
                 
             </div>
         @endrole
