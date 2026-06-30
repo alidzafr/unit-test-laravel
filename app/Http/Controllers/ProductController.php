@@ -19,9 +19,9 @@ class ProductController extends Controller
         $categories = Category::all();
         // Scope Filter
         $products = $category->products()
-        ->latest()
-        ->paginate(10)
-        ->withQueryString();
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
         return view('product.index', compact('categories', 'products'));
     }
@@ -31,11 +31,18 @@ class ProductController extends Controller
         $categories = Category::all();
         // Scope Filter
         $products = Product::filter(request(['search', 'category']))
-        ->latest()
-        ->paginate(10)
-        ->withQueryString();
+            ->latest()
+            ->paginate(10)
+            ->withQueryString();
 
-        return view('product.index', compact('categories', 'products'));
+        // Selected category name/slug
+        $selectedctg = null;
+        if ($request->filled('category')) {
+            $slug = $request->category;
+            $selectedctg = Category::where('slug', $slug)->firstOrFail();
+        }
+
+        return view('product.index', compact('categories', 'selectedctg', 'products'));
     }
 
     /**
