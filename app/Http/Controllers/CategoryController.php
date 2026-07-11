@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class CategoryController extends Controller
 {
@@ -29,11 +30,15 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|max:35|string'
+            'name' => 'required|max:35|string',
         ]);
+        
+        $validated['slug'] = Str::slug($request->name);
 
-        Product::create($validated);
-        return redirect()->route('products.index');
+        Category::create($validated);
+        return redirect()->back();
+        
+        // need validation for unique
     }
 
     /**
