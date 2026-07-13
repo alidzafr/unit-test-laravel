@@ -31,7 +31,8 @@
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Brand</legend>
                     <input 
-                        name="brand" type="text" :value="old('brand')"
+                        name="brand" type="text"
+                        value="{{ old('brand') }}"
                         class="input w-2xl" placeholder="Type here"
                     />
                 </fieldset>
@@ -117,20 +118,22 @@
 
         <form action="{{ route('categories.store') }}" method="POST">
             @csrf
-            <h3 class="text-lg font-bold">Create new category</h3>
+            <h3 class="mb-3 text-lg font-bold">Create new category</h3>
             <input name="name" 
-                    type="text" 
-                    :value="old('name')"
-                    class="input w-md" 
+                    type="text"
+                    value="{{ old('name') }}"
+                    class="input w-md @error('name') border-error @enderror" 
                     placeholder="Type here">
 
             @error('name')
-                {{ $message }}
+                <p class="mt-1 text-error">
+                    {{ $message }}
+                </p>
                 <script>
                     document.getElementById('my_modal_7').checked = true;
                 </script>
             @enderror
-            
+
             <div class="modal-action">
                 <button type="submit" class="btn btn-primary">
                     Submit
