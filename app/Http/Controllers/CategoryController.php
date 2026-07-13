@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
+use Illuminate\Validation\ValidationException;
 
 class CategoryController extends Controller
 {
@@ -30,13 +32,30 @@ class CategoryController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|max:35|string',
+            'name' => 'required|max:35|string|unique:categories,name',
+        ], [
+            'name.unique' => 'Nama Kategori sudah digunakan.'
         ]);
         
-        $validated['slug'] = Str::slug($request->name);
+        DB::beginTransaction();
 
-        Category::create($validated);
-        return redirect()->back();
+        try {
+            $validated['slug'] = Str::slug($request->name);
+
+            $newCategory = Category::create($validated);
+
+            DB::commit();
+
+            return redirect()->back();
+        } catch (\Exception $e) {
+            DB::rollBack();
+
+            $error = ValidationException::withMessages([
+                'system_error' => ['System error!' . $e->getMessage()],
+            ]);
+            throw $error;
+        }
+
         
         // need validation for unique
     }

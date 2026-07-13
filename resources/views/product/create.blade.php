@@ -51,7 +51,7 @@
                         <span>or</span>
                         
                         <!-- The button to open modal -->
-                        <label for="my_modal_6" class="btn">+ Create new Category</label>
+                        <label for="my_modal_7" class="btn">+ Create new Category</label>
                     </div>
                 </fieldset>
                 
@@ -110,20 +110,40 @@
 
 
 <!-- Put this part before </body> tag -->
-<input type="checkbox" id="my_modal_6" class="modal-toggle" />
+
+<input type="checkbox" id="my_modal_7" class="modal-toggle" />
 <div class="modal" role="dialog">
     <div class="modal-box">
+
         <form action="{{ route('categories.store') }}" method="POST">
             @csrf
             <h3 class="text-lg font-bold">Create new category</h3>
-            <input name="name" type="text" :value="old('name')"
-                    class="input w-md" placeholder="Type here">
-                <div class="modal-action">
-                    <button type="submit" class="btn btn-primary">Submit</button>
-                    <label for="my_modal_6" class="btn">Cancel</label>
-                </div>
+            <input name="name" 
+                    type="text" 
+                    :value="old('name')"
+                    class="input w-md" 
+                    placeholder="Type here">
+
+            @error('name')
+                {{ $message }}
+                <script>
+                    document.getElementById('my_modal_7').checked = true;
+                </script>
+            @enderror
+            
+            <div class="modal-action">
+                <button type="submit" class="btn btn-primary">
+                    Submit
+                </button>
+                <label for="my_modal_7" class="btn">
+                    Cancel
+                </label>
+            </div>
         </form>
+
     </div>
+    {{-- box shadow actually close button too--}}
+    <label class="modal-backdrop" for="my_modal_7"></label>
 </div>
 
 </x-layout>
