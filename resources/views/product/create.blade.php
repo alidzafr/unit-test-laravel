@@ -40,12 +40,19 @@
             <div class="flex mb-4">
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Category</legend>
-                    <select name="category_id" class="select w-2xl">
-                        <option disabled selected>Pick a category</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
-                        @endforeach
-                    </select>
+                    <div class="flex items-center space-x-2">
+                        <select name="category_id" class="select w-md">
+                            <option disabled selected>Select existing category</option>
+                            @foreach ($categories as $category)
+                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            @endforeach
+                        </select>
+
+                        <span>or</span>
+                        
+                        <!-- The button to open modal -->
+                        <label for="my_modal_7" class="btn">+ Create new Category</label>
+                    </div>
                 </fieldset>
                 
                 <fieldset class="fieldset">
@@ -100,5 +107,43 @@
         </div>
         <button type="submit" class="btn btn-primary mt-2">Save</button>
     </form>
+
+
+<!-- Put this part before </body> tag -->
+
+<input type="checkbox" id="my_modal_7" class="modal-toggle" />
+<div class="modal" role="dialog">
+    <div class="modal-box">
+
+        <form action="{{ route('categories.store') }}" method="POST">
+            @csrf
+            <h3 class="text-lg font-bold">Create new category</h3>
+            <input name="name" 
+                    type="text" 
+                    :value="old('name')"
+                    class="input w-md" 
+                    placeholder="Type here">
+
+            @error('name')
+                {{ $message }}
+                <script>
+                    document.getElementById('my_modal_7').checked = true;
+                </script>
+            @enderror
+            
+            <div class="modal-action">
+                <button type="submit" class="btn btn-primary">
+                    Submit
+                </button>
+                <label for="my_modal_7" class="btn">
+                    Cancel
+                </label>
+            </div>
+        </form>
+
+    </div>
+    {{-- box shadow actually close button too--}}
+    <label class="modal-backdrop" for="my_modal_7"></label>
+</div>
 
 </x-layout>

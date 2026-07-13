@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Api\ProductController as ApiProductCtr;
 use Illuminate\Support\Facades\Route;
 
@@ -18,7 +19,8 @@ Route::get('/', function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('products/categories/{category:slug}', [ProductController::class, 'category'])->name('products.category');
+    // Route::get('categories/{category:slug}', [ProductController::class, 'category'])->name('products.category');
+    Route::post('categories', [CategoryController::class, 'store'])->name('categories.store')->middleware('role:owner');
 
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('products/create', [ProductController::class, 'create'])->name('products.create')->middleware('role:owner');
