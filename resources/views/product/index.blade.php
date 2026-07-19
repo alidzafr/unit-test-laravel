@@ -53,7 +53,8 @@
                                 @continue {{-- Skips the rest of the loop for this specific item --}}
                             @endif
                         <li>
-                            <a href="/products?category={{ $category->slug }}">
+                            <a href="{{ route('products.index', 
+                                array_merge(request()->query(), ['category' => $category->slug])) }}">
                                 {{ $category->name }}
                             </a>
                         </li>
@@ -65,7 +66,7 @@
                 </div>
                 {{-- Clear Category --}}
                 @if (request()->query('category') > 0)
-                <a href="{{ request()->fullUrlWithoutQuery(['category']) }}" class="btn btn-soft btn-error">
+                <a href="{{ route('products.index', request()->except('category')) }}" class="btn btn-soft btn-error">
                     Remove Category Filter
                 </a>
                 @endif
