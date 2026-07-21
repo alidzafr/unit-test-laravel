@@ -16,6 +16,8 @@
         'Segoe UI Symbol', 'Noto Color Emoji';
 }
 
+@custom-variant dark (false);
+
 /* active sidebar */
 @layer components {
     .active {

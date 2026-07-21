@@ -14,17 +14,6 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function category(Category $category)
-    {
-        $categories = Category::all();
-        // Scope Filter
-        $products = $category->products()
-            ->latest()
-            ->paginate(10)
-            ->withQueryString();
-
-        return view('product.index', compact('categories', 'products'));
-    }
 
     public function index(Request $request)
     {

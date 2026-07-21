@@ -15,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        //
+        $categories = Category::paginate(10);
+
+        return view('category.index', compact('categories'));
     }
 
     /**
@@ -23,7 +25,7 @@ class CategoryController extends Controller
      */
     public function create()
     {
-        //
+        return view('category.create');
     }
 
     /**
@@ -33,6 +35,8 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|max:35|string|unique:categories,name',
+            'tagline' => 'max:35|string',
+            'photo' => 'image|mimes:png,jpg,svg'
         ], [
             'name.unique' => 'Nama Kategori sudah digunakan.'
         ]);
@@ -41,6 +45,10 @@ class CategoryController extends Controller
 
         try {
             $validated['slug'] = Str::slug($request->name);
+            if ($request->hasFile('photo')) {
+                $photoPath = $request->file('photo')->store('category_photos', 'public');
+                $validated['photo'] = $photoPath;
+            }
 
             $newCategory = Category::create($validated);
 

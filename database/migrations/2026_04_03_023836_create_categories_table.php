@@ -15,6 +15,8 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('slug')->unique();
+            $table->string('tagline')->nullable();
+            $table->string('photo')->nullable();
             $table->timestamps();
         });
     }
