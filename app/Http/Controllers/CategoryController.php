@@ -40,7 +40,7 @@ class CategoryController extends Controller
         ], [
             'name.unique' => 'Nama Kategori sudah digunakan.'
         ]);
-        
+
         DB::beginTransaction();
 
         try {
@@ -64,7 +64,7 @@ class CategoryController extends Controller
             throw $error;
         }
 
-        
+
         // need validation for unique
     }
 
@@ -73,7 +73,8 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        //
+        $products = $category->products()->paginate(10);
+        return view('category.show', compact('category', 'products'));
     }
 
     /**
@@ -81,7 +82,7 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
-        //
+        return view('category.edit', compact('category'));
     }
 
     /**

@@ -25,17 +25,22 @@
                     </div>
                 </div>
                 <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                    <a href="#" class="btn btn-neutral rounded-lg">
-                        Edit
+                    <a href="{{ route('categories.show', $category->slug) }}" class="btn btn-neutral rounded-lg">
+                        View
                     </a>
                 </div>
             </li>
                 
             @empty
-                
+                Kosong
             @endforelse
 
         </ul>
+
+        {{-- Pagination radio --}}
+        <div class="p-6">
+            {{ $categories->links() }}
+        </div>
         
     </div>
     
