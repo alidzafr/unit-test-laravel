@@ -28,7 +28,7 @@
         
     </div>
         
-    <form method="POST" action="{{ route('products.update', $products->id) }}">
+    <form method="POST" action="{{ route('products.update', $products->id) }}" enctype="multipart/form-data">
         @method("PUT")
         @csrf
         {{-- Desc --}}
@@ -140,7 +140,7 @@
             <h3 class="mb-2 text-lg font-bold">Upload Image</h3>
             <img src="{{Storage::url(($products->photo))}}" alt ="album">
             <div class="flex justify-center">
-                <input name="image" type="file" class="file-input file-input-neutral" />
+                <input name="photo" type="file" class="file-input file-input-neutral" />
             </div>
 
         </div>

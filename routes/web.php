@@ -24,6 +24,7 @@ Route::middleware('auth')->group(function () {
     Route::post('categories', [CategoryController::class, 'store'])->name('categories.store')->middleware('role:owner');
     Route::get('categories/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
     Route::get('categories/edit/{category:slug}', [CategoryController::class, 'edit'])->name('categories.edit');
+    Route::put('categories/update/{category}', [CategoryController::class, 'update'])->name('categories.update');
 
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('products/create', [ProductController::class, 'create'])->name('products.create')->middleware('role:owner');

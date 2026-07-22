@@ -90,7 +90,46 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        //
+        $validated = $request->validate([
+            'tagline' => 'nullable|max:64|string',
+            'photo' => 'sometimes|image|mimes:png,jpg,svg'
+        ]);
+
+        DB::beginTransaction();
+
+        try {
+            if ($request->hasFile('photo')) {
+                $photoPath = $request->file('photo')->store('category_photos', 'public');
+                $validated['photo'] = $photoPath;
+            }
+
+            // name must unique or same as previous
+            if ($request['name'] == $category->name) {
+                $request->validate(['name' => 'required|max:35|string']);
+                $validated['name'] =  $request['name'];
+            } else {
+                $request->validate(
+                    ['name' => 'required|max:35|string|unique:categories,name'],
+                    ['name.unique' => 'Nama Kategori sudah digunakan.']
+                );
+                $validated['name'] = $request['name'];
+            }
+
+            // slug
+            $validated['slug'] = Str::slug($request->name);
+            $category->update($validated);
+
+            DB::commit();
+
+            return redirect()->route('categories.show', $category->slug);
+        } catch (\Exception $e) {
+            DB::rollback();
+
+            $error = ValidationException::withMessages([
+                'system_error' => ['System error! ' . $e->getMessage()],
+            ]);
+            throw $error;
+        }
     }
 
     /**
