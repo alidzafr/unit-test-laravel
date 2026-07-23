@@ -29,6 +29,6 @@ class DatabaseSeeder extends Seeder
         $owner->assignRole($ownerRole);
 
         Product::factory(10)->create();
-        Category::factory(10)->create();
+        // Category::factory(10)->create();
     }
 }

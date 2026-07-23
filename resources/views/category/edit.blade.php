@@ -1,10 +1,29 @@
 <x-layout>
     {{-- Top row title --}}
     <div class="flex mb-8 w-full justify-between items-center">
-        <div class="prose">
-            <h1>
-                Edit Category
-            </h1>
+        <div class="flex flex-col">
+            <div class="prose">
+                <h1>
+                    Category Edit
+                </h1>
+            </div>
+            <div class="breadcrumbs text-sm">
+                <ul>
+                    <li>
+                        <a href="{{ route('categories.index')}}">
+                            Categories
+                        </a>
+                    </li>
+                    <li>
+                        <label for="my_modal_6">
+                            {{ $category->name }}
+                        </label>
+                    </li>
+                    <li>
+                        Edit
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     

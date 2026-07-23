@@ -1,10 +1,18 @@
 <x-layout>
     {{-- Top row title --}}
     <div class="flex mb-8 w-full justify-between items-center">
-        <div class="prose">
-            <h1>
-                Categories
-            </h1>
+        <div class="flex flex-col">
+            <div class="prose">
+                <h1>
+                    Categories
+                </h1>
+            </div>
+            <div class="breadcrumbs text-sm">
+              <ul>
+                <li>Categories</li>
+              </ul>
+            </div>
+            
         </div>
         <a href="{{ route('categories.create') }}"
             class="btn bg-primary text-white hover:bg-primary/75 rounded-lg">

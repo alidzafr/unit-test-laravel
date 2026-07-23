@@ -1,16 +1,30 @@
 <x-layout>
     {{-- Top row title --}}
     <div class="flex mb-8 w-full justify-between items-center">
-        <div class="prose">
-            <h1>
-                View Category
-            </h1>
+        <div class="flex flex-col">
+            <div class="prose">
+                <h1>
+                    Category Detail
+                </h1>
+            </div>
+            <div class="breadcrumbs text-sm">
+                <ul>
+                    <li>
+                        <a href="{{ route('categories.index')}}">
+                            Categories
+                        </a>
+                    </li>
+                    <li>
+                        {{ $category->name }}
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
     
     <div class="flex flex-col space-x-6">
         {{-- Card Atas --}}
-        <div class="flex p-4 mb-4 justify-between bg-white rounded-xl w-full">
+        <div class="flex p-4 mb-4 justify-between bg-white border border-gray-200 rounded-2xl w-full">
             {{-- Nama Category --}}
             <div class="flex items-center min-w-0 gap-x-4">
                 @isset($category->photo)
@@ -34,7 +48,7 @@
         </div>
 
         {{-- Card Bawah --}}
-        <div class="flex flex-col p-4 bg-white rounded-xl">
+        <div class="flex flex-col p-4 bg-white border border-gray-200 rounded-2xl w-full">
             <div class="flex mb-8 justify-between">
                 <span class="mb-4">All Product</span>
                 <a href="#" class="btn btn-neutral">Add Product</a>
