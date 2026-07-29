@@ -21,7 +21,7 @@
 /* active sidebar */
 @layer components {
     .active {
-        @apply bg-primary-content text-primary
+        @apply bg-primary-content text-primary font-bold
     }
     .inactive {
         @apply hover:bg-gray-100 hover:text-neutral

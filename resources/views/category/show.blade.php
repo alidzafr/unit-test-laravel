@@ -70,32 +70,9 @@
                     </div>
                 </div>
                 <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                    {{-- <a href="{{ route('categories.show', $product->brand) }}" class="btn btn-neutral rounded-lg">
+                    <a href="{{ route('products.show', $product->id) }}" class="btn btn-neutral rounded-lg">
                         View
-                    </a> --}}
-                    <!-- The button to open modal -->
-                    <label for="my_modal_7" class="btn">View</label>
-                    
-                    <!-- Put this part before </body> tag -->
-                    <input type="checkbox" id="my_modal_7" class="modal-toggle" />
-                    <div class="modal" role="dialog">
-                        <div class="modal-box">
-                            <ul>
-                                {{-- Content --}}
-                                <li>{{ $product->name }}</li>
-                                <li>{{ $product->brand }}</li>
-                                <li>{{ $product->color }}</li>
-                                <li>{{ $product->description }}</li>
-                                <li>{{ $product->price }}</li>
-                                <li>{{ $product->qty }}</li>
-
-                            </ul>
-                    
-                        </div>
-                        {{-- box shadow actually close button too--}}
-                        <label class="modal-backdrop" for="my_modal_7"></label>
-                    </div>
-                    
+                    </a>
 
                 </div>
             </li>
