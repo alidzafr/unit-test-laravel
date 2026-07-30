@@ -1,6 +1,5 @@
 <x-layout>
-    {{-- Top row title --}}
-    <div class="flex mb-8 w-full justify-between items-center">
+    {{-- <div class="flex mb-8 w-full justify-between items-center">
         <div class="flex flex-col">
             <div class="prose">
                 <h1>
@@ -18,13 +17,53 @@
             class="btn bg-primary text-white hover:bg-primary/75 rounded-lg">
             Add New +
         </a>
-    </div>
-    <div class="flex flex-col p-4 bg-white w-full border border-gray-200 rounded-2xl">
-        
-        <ul role="list" class="divide-y divide-gray-100">
-            
-            @forelse ($categories as $category)
-            <li class="flex justify-between gap-x-6 py-5">
+    </div> --}}
+        @role('owner')
+            <div class="flex p-4 justify-end space-x-4">
+                {{-- Search Bar --}}
+                <form>
+                    <div class="join">
+                        <label class="input rounded-tl-lg rounded-bl-lg">
+                            <svg class="h-[1em] opacity-50" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                <g stroke-linejoin="round"
+                                stroke-linecap="round" stroke-width="2.5"
+                                fill="none" stroke="currentColor">
+                                    <circle cx="11" cy="11" r="8"></circle>
+                                    <path d="m21 21-4.3-4.3"></path>
+                                </g>
+                            </svg>
+                            <input name="search" type="search" required placeholder="Type here" value="{{ request('search') }}" autocomplete="off"/>
+                        </label>
+                        <button class="btn btn-ghost rounded-tr-lg rounded-br-lg border border-gray-300 join-item">Search</button>
+                        @if (request()->has('search') && !is_null(request()->input('search')))
+                            <a href="{{ route('categories.index', request()->query->remove('search')) }}" 
+                                class="btn btn-soft btn-error">
+                                Clear
+                            </a>
+                        @endif
+                    </div>
+                </form>
+                
+            </div>
+        @endrole
+
+<div class="overflow-x-auto bg-white border border-gray-200 rounded-2xl shadow">
+    <table class="table">
+        <!-- head -->
+        <thead class="bg-gray-100">
+        <tr>
+            <th></th>
+            <th>Nama Kategori</th>
+            <th>Keterangan</th>
+            <th>Dibuat pada tanggal</th>
+            <th class="w-50 text-center">Opsi</th>
+        </tr>
+        </thead>
+        <tbody>
+        @forelse ($categories as $category)
+        <tr class="group hover:bg-gray-100 transition-colors">
+            <th>{{ $loop->iteration }}</th>
+            <td>
                 <div class="flex min-w-0 gap-x-4">
                     @isset($category->photo)
                         <img src="{{ Storage::url(($category->photo)) }}" alt="" class="w-14 rounded-full">
@@ -39,24 +78,30 @@
                         <p class="mt-1 truncate text-xs/5 text-gray-500">{{ $category->slug }}</p>
                     </div>
                 </div>
-                <div class="hidden shrink-0 sm:flex sm:flex-col sm:items-end">
-                    <a href="{{ route('categories.show', $category->slug) }}" class="btn btn-neutral rounded-lg">
+            </td>
+            
+            <td>{{ $category->tagline }}</td>
+            <td>{{ $category->created_at }}</td>
+            <td>
+                <div class="flex justify-center space-x-2">
+                    <a href="{{ route('categories.show', $category->slug) }}" class="btn btn-info opacity-0 group-hover:opacity-100 transition-opacity">
                         View
                     </a>
+                    <a href="{{ route('categories.edit', $category->slug) }}" class="btn btn-warning opacity-0 group-hover:opacity-100 transition-opacity">
+                        Edit
+                    </a>
                 </div>
-            </li>
-                
-            @empty
-                Kosong
-            @endforelse
-
-        </ul>
-
-        {{-- Pagination radio --}}
-        <div class="p-6">
-            {{ $categories->links() }}
-        </div>
-        
-    </div>
+            </td>
+        </tr>
+        @empty
+        <th>Data Kosong</th>
+        @endforelse
+        </tbody>
     
+    </table>
+    {{-- Pagination radio --}}
+    <div class="p-6">
+        {{ $categories->links() }}
+    </div>
+</div>   
 </x-layout>

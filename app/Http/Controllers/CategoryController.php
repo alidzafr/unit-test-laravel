@@ -15,7 +15,9 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        $categories = Category::paginate(10);
+        $categories = Category::filter(request(['search']))
+        ->paginate(10)
+        ->withQueryString();
 
         return view('category.index', compact('categories'));
     }

@@ -12,7 +12,7 @@
     <input id="my-drawer-3" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content flex flex-col items-center justify-center">
       {{-- Navbar --}}
-      <header class="sticky top-0 p-3 navbar bg-white border-b border-gray-200 space-x-2">
+      <header class="z-99 sticky top-0 p-3 navbar bg-white border-b border-gray-200 space-x-2">
         <div class="flex-none">
           <label for="my-drawer-3" class="drawer-button btn btn-ghost lg:hidden">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-5 w-5 stroke-current"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path> </svg>
