@@ -35,14 +35,31 @@
                             
                             <div class="col-span-full">
                                 <label for="photo" class="block text-sm/6 font-medium text-gray-900">Photo</label>
-                                <div class="mt-2 flex flex-col items-center gap-x-3">
-                                    <div class="p-10 mb-4 bg-gray-200 rounded-lg">
-
+                                <div class="mt-2 flex items-center justify-center space-x-4">
+                                    <div class="p-10 bg-gray-200 rounded-lg">
                                         <svg viewBox="0 0 24 24" fill="currentColor" data-slot="icon" aria-hidden="true" class="size-12 text-gray-700">
                                             <path d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" fill-rule="evenodd" />
                                         </svg>
                                     </div>
-                                    <input type="file" class="file-input file-input-sm file-input-info w-55" />
+
+                                    <label for="file-upload" 
+                                    class="flex px-6 py-5 w-sm justify-center rounded-lg font-bold border border-dashed border-accent hover:bg-accent hover:cursor-pointer">
+                                        <div class="text-center">
+                                            <svg viewBox="0 0 24 24" fill="currentColor" data-slot="icon" aria-hidden="true" class="mx-auto size-12 text-gray-600">
+                                                <path d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" fill-rule="evenodd" />
+                                            </svg>
+                                            <div class="flex text-sm/6">
+                                                {{-- <label for="file-upload" class="relative cursor-pointer rounded-md bg-transparent font-semibold text-indigo-400 focus-within:outline-2 focus-within:outline-offset-2 focus-within:outline-indigo-500 hover:text-indigo-300">
+                                                    <span>Upload a file</span>
+                                                    <input id="file-upload" type="file" name="file-upload" class="sr-only" />
+                                                </label> --}}
+                                                <p class="pl-1">Klik untuk upload foto</p>
+                                            </div>
+                                            <p class="text-xs/5 text-gray-500">PNG, JPG, GIF up to 10MB</p>
+                                        </div>
+                                        <input id="file-upload" type="file" name="file-upload" class="sr-only" />
+                                    </label>
+
                                     {{-- <input name="photo" 
                                         type="file" 
                                         class="@error('photo') border-error @enderror file-input w-full rounded-md" /> --}}
@@ -90,13 +107,13 @@
                     </div>
                 </div>
                 
-                <div class="mt-6 flex items-center justify-end gap-x-6">
+                <div class="mt-6 flex items-center justify-end gap-x-2">
                     {{-- <button class="btn btn-error">Error</button> --}}
 
-                    <label for="my_modal_6" class="btn btn-error">
+                    <label for="my_modal_6" class="btn btn-soft btn-error">
                         Discard
                     </label>
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-info">
                         Save
                     </button>
                 </div>
