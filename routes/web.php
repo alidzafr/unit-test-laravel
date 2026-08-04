@@ -23,16 +23,16 @@ Route::middleware('auth')->group(function () {
     Route::get('categories/create', [CategoryController::class, 'create'])->name('categories.create');
     Route::post('categories', [CategoryController::class, 'store'])->name('categories.store')->middleware('role:owner');
     Route::get('categories/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
-    Route::get('categories/edit/{category:slug}', [CategoryController::class, 'edit'])->name('categories.edit');
-    Route::put('categories/update/{category}', [CategoryController::class, 'update'])->name('categories.update');
+    Route::get('categories/{category:slug}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
+    Route::put('categories/{category}/update', [CategoryController::class, 'update'])->name('categories.update');
 
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('products/create', [ProductController::class, 'create'])->name('products.create')->middleware('role:owner');
-    Route::get('products/detail/{products}', [ProductController::class, 'show'])->name('products.show')->middleware('role:owner');
+    Route::get('products/{product}/detail', [ProductController::class, 'show'])->name('products.show')->middleware('role:owner');
     Route::post('products', [ProductController::class, 'store'])->name('products.store')->middleware('role:owner');
-    Route::get('products/edit/{products}', [ProductController::class, 'edit'])->name('products.edit')->middleware('role:owner');
-    Route::put('products/update/{products}', [ProductController::class, 'update'])->name('products.update')->middleware('role:owner');
-    Route::delete('products/{products}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('role:owner');
+    Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit')->middleware('role:owner');
+    Route::put('products/{product}/update', [ProductController::class, 'update'])->name('products.update')->middleware('role:owner');
+    Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('role:owner');
 });
 
 Route::get('/api/products/', [ApiProductCtr::class, 'index']);
