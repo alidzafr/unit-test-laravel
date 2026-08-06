@@ -87,24 +87,21 @@ class ProductController extends Controller
      * Display the specified resource.
      */
     // public function show(string $id)
-    public function show(Product $products)
+    public function show(Product $product)
     {
-        $cat_id = $products->category_id;
-        $category = Category::findOrFail($cat_id);
-
         return view('product.show', [
-            'product' => $products
+            'product' => $product
         ]);
     }
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Product $products)
+    public function edit(Product $product)
     {
         $categories = Category::all();
         return view('product.edit', [
-            'products' => $products,
+            'product' => $product,
             'categories' => $categories
         ]);
     }
@@ -112,7 +109,7 @@ class ProductController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Product $products)
+    public function update(Request $request, Product $product)
     {
         $validated = $request->validate([
             'name' => 'required|max:25|string',
@@ -133,11 +130,11 @@ class ProductController extends Controller
                 $validated['photo'] = $productPath;
             }
             // Slug nama
-            $products->update($validated);
+            $product->update($validated);
 
             DB::commit();
 
-            return redirect()->route('products.show', $products->id);
+            return redirect()->route('products.show', $product->id);
         } catch (\Exception $e) {
             DB::rollBack();
 

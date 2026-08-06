@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Category;
+use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
@@ -16,8 +17,8 @@ class CategoryController extends Controller
     public function index()
     {
         $categories = Category::filter(request(['search']))
-        ->paginate(10)
-        ->withQueryString();
+            ->paginate(10)
+            ->withQueryString();
 
         return view('category.index', compact('categories'));
     }
@@ -75,7 +76,10 @@ class CategoryController extends Controller
      */
     public function show(Category $category)
     {
-        $products = $category->products()->paginate(10);
+        $products = Product::where('category_id', $category->id)
+            ->filter(request(['search']))
+            ->paginate(10);
+
         return view('category.show', compact('category', 'products'));
     }
 

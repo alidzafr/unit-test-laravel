@@ -10,7 +10,7 @@
             <h3 class="text-lg font-bold">Delete Confirm</h3>
             <p class="py-4">Are you sure want to delete this product ?</p>
             <div class="flex justify-center space-x-2">
-                <form action="{{ route('products.destroy', $products->id) }}" method="POST">
+                <form action="{{ route('products.destroy', $product->id) }}" method="POST">
                     @method('DELETE')
                     @csrf
                     <button class="btn btn-accent">
@@ -28,12 +28,12 @@
         
     </div>
         
-    <form method="POST" action="{{ route('products.update', $products->id) }}" enctype="multipart/form-data">
+    <form method="POST" action="{{ route('products.update', $product->id) }}" enctype="multipart/form-data">
         @method("PUT")
         @csrf
         {{-- Desc --}}
         <div class="p-8 mb-8 bg-white w-full border border-gray-200 rounded-2xl">
-            <h3 class="mb-2 text-lg font-bold">{{ $products->name }}</h3>
+            <h3 class="mb-2 text-lg font-bold">{{ $product->name }}</h3>
             
             @if ($errors->any())
             <div role="alert" class="alert alert-error">
@@ -52,7 +52,7 @@
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Name</legend>
                     <input 
-                        value="{{ $products->name }}"
+                        value="{{ $product->name }}"
                         name="name" type="text" 
                         class="input w-2xl" placeholder="Type here"
                     />
@@ -61,7 +61,7 @@
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Brand</legend>
                     <input
-                        value="{{ $products->brand }}"
+                        value="{{ $product->brand }}"
                         name="brand" type="text" 
                         class="input w-2xl" placeholder="Type here"
                     />
@@ -72,11 +72,11 @@
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Category</legend>
                     <select name="category_id" class="select w-2xl">
-                        <option value="{{ $products->category_id }}">
-                            {{ $products->category->name }}
+                        <option value="{{ $product->category_id }}">
+                            {{ $product->category->name }}
                         </option>
                         @foreach ($categories as $category)
-                            @if ($category->id == $products->category_id)
+                            @if ($category->id == $product->category_id)
                                 @continue {{-- Skips the rest of the loop for this specific item --}}
                             @endif
                             <option value="{{ $category->id }}">
@@ -89,7 +89,7 @@
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Color</legend>
                     <input
-                        value="{{ $products->color }}"
+                        value="{{ $product->color }}"
                         name="color" type="text" 
                         class="input w-2xl" placeholder="Type here"
                     />
@@ -100,7 +100,7 @@
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Price</legend>
                     <input
-                        value="{{ $products->price }}"
+                        value="{{ $product->price }}"
                         name="price" type="number" 
                         class="input w-2xl" placeholder="Type here"
                     />
@@ -113,7 +113,7 @@
                     <textarea
                         name="description" 
                         class="textarea h-48 w-340" placeholder="Product info (optional)"
-                    >{{ $products->description }}</textarea>
+                    >{{ $product->description }}</textarea>
                 </fieldset>
             </div>
         </div>
@@ -125,7 +125,7 @@
                 <fieldset class="fieldset mr-4">
                     <legend class="fieldset-legend">Stock Quantity</legend>
                     <input
-                        value="{{ $products->qty }}"
+                        value="{{ $product->qty }}"
                         name="qty" type="number" 
                         class="input w-2xl" placeholder="Type here"
                     />
@@ -138,7 +138,7 @@
         {{-- Upload --}}
         <div class="p-8 mb-8 bg-white w-full border border-gray-200 rounded-2xl">
             <h3 class="mb-2 text-lg font-bold">Upload Image</h3>
-            <img src="{{Storage::url(($products->photo))}}" alt ="album">
+            <img src="{{Storage::url(($product->photo))}}" alt ="album">
             <div class="flex justify-center">
                 <input name="photo" type="file" class="file-input file-input-neutral" />
             </div>
