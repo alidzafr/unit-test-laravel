@@ -39,7 +39,6 @@ class CategoryController extends Controller
         $validated = $request->validate([
             'name' => 'required|max:35|string|unique:categories,name',
             'tagline' => 'max:35|string',
-            'photo' => 'image|mimes:png,jpg,svg'
         ], [
             'name.unique' => 'Nama Kategori sudah digunakan.'
         ]);
@@ -48,10 +47,6 @@ class CategoryController extends Controller
 
         try {
             $validated['slug'] = Str::slug($request->name);
-            if ($request->hasFile('photo')) {
-                $photoPath = $request->file('photo')->store('category_photos', 'public');
-                $validated['photo'] = $photoPath;
-            }
 
             $newCategory = Category::create($validated);
 
@@ -98,17 +93,11 @@ class CategoryController extends Controller
     {
         $validated = $request->validate([
             'tagline' => 'nullable|max:64|string',
-            'photo' => 'sometimes|image|mimes:png,jpg,svg'
         ]);
 
         DB::beginTransaction();
 
         try {
-            if ($request->hasFile('photo')) {
-                $photoPath = $request->file('photo')->store('category_photos', 'public');
-                $validated['photo'] = $photoPath;
-            }
-
             // name must unique or same as previous
             if ($request['name'] == $category->name) {
                 $request->validate(['name' => 'required|max:35|string']);

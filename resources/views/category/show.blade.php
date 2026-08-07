@@ -107,10 +107,7 @@
                 @foreach ($products as $product)
                 <tr class="group hover:bg-gray-100 transition-colors">
                     <td>{{ $loop->iteration }}</td>
-                    <td class="flex py-4 space-x-2 items-center">
-                        @isset($product->photo)
-                        <img src="{{ Storage::url(($product->photo)) }}" alt="" class="w-16">
-                        @endisset
+                    <td class="py-4 space-x-2 items-center">
                         <div>
                             {{ $product->name }}
                         </div>

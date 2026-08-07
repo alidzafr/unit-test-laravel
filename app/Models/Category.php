@@ -16,9 +16,8 @@ class Category extends Model
         'name',
         'slug',
         'tagline',
-        'photo',
     ];
-    
+
     public function products(): HasMany
     {
         return $this->hasMany(Product::class);
@@ -28,8 +27,8 @@ class Category extends Model
     protected function filter(Builder $query, array $filters): void
     {
         $query->when(
-            $filters['search'] ?? false, 
-            fn ($query, $search) =>
+            $filters['search'] ?? false,
+            fn($query, $search) =>
             $query->where('name', 'like', '%' . $search . '%')
         );
     }
