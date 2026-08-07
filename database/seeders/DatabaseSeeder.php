@@ -4,7 +4,7 @@ namespace Database\Seeders;
 
 use App\Models\Product;
 use App\Models\User;
-use App\Models\Category;
+use App\Models\Customer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
@@ -29,6 +29,6 @@ class DatabaseSeeder extends Seeder
         $owner->assignRole($ownerRole);
 
         Product::factory(10)->create();
-        // Category::factory(10)->create();
+        Customer::factory(5)->create();
     }
 }
