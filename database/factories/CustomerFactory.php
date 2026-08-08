@@ -3,6 +3,7 @@
 namespace Database\Factories;
 
 use App\Models\Customer;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,11 +18,14 @@ class CustomerFactory extends Factory
      */
     public function definition(): array
     {
-        return [
+        $tempArr = [
             'name' => fake()->name,
             'email' => fake()->unique()->safeEmail,
             'phone' => rand(100000, 9999999),
             'address' => fake()->text(32)
         ];
+        $tempArr['slug'] = Str::slug($tempArr['name']);
+
+        return $tempArr;
     }
 }

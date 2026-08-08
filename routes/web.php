@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthenticatedSessionController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Api\ProductController as ApiProductCtr;
+use App\Http\Controllers\CustomersController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'viewLogin'])->name('login');
@@ -25,6 +26,13 @@ Route::middleware('auth')->group(function () {
     Route::get('categories/{category:slug}', [CategoryController::class, 'show'])->name('categories.show');
     Route::get('categories/{category:slug}/edit', [CategoryController::class, 'edit'])->name('categories.edit');
     Route::put('categories/{category}/update', [CategoryController::class, 'update'])->name('categories.update');
+
+    Route::get('customers', [CustomersController::class, 'index'])->name('customers.index');
+    Route::get('customers/create', [CustomersController::class, 'create'])->name('customers.create');
+    Route::post('customers', [CustomersController::class, 'store'])->name('customers.store')->middleware('role:owner');
+    Route::get('customers/{customer:slug}', [CustomersController::class, 'show'])->name('customers.show');
+    Route::get('customers/{customer:slug}/edit', [CustomersController::class, 'edit'])->name('customers.edit');
+    Route::put('customers/{customer}/update', [CustomersController::class, 'update'])->name('customers.update');
 
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('products/create', [ProductController::class, 'create'])->name('products.create')->middleware('role:owner');

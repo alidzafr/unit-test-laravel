@@ -13,7 +13,7 @@ class CustomersController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request)
+    public function index()
     {
         $customers = Customer::filter(request(['search']))
             ->latest()
@@ -45,9 +45,11 @@ class CustomersController extends Controller
             'emaiil.unique' => 'Email sudah digunakan'
         ]);
 
+        DB::beginTransaction();
+
         try {
             $validated['slug'] = Str::slug($request->name);
-            
+
             $newCustomer = Customer::create($validated);
             DB::commit();
 
@@ -90,7 +92,7 @@ class CustomersController extends Controller
             'address' => 'required|max:50|string'
         ]);
 
-        DB::beginTransaction()
+        DB::beginTransaction();
 
         try {
             // name must unique or same as previous

@@ -28,20 +28,20 @@ class Product extends Model
     }
 
     #[Scope]
-    // protected function filter(Builder $query, array $filters): void
     protected function filter(Builder $query, array $filters): void
     {
         $query->when(
-            $filters['search'] ?? false, 
-            fn ($query, $search) =>
+            $filters['search'] ?? false,
+            fn($query, $search) =>
             $query->where('name', 'like', '%' . $search . '%')
         );
-        
+
         $query->when(
-            $filters['category'] ?? false, 
-            fn ($query, $category) =>
-            $query->whereHas('category', fn ($query) => $query->where(
-                'slug', $category
+            $filters['category'] ?? false,
+            fn($query, $category) =>
+            $query->whereHas('category', fn($query) => $query->where(
+                'slug',
+                $category
             ))
         );
     }
