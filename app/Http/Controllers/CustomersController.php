@@ -39,10 +39,10 @@ class CustomersController extends Controller
         $validated = $request->validate([
             'name' => 'required|max:50|string',
             'phone' => 'required|max:10000000000|numeric',
-            'email' => 'required|max:50|string|unique:customer,email',
+            'email' => 'required|max:50|string|unique:customers,email',
             'address' => 'required|max:50|string'
         ], [
-            'emaiil.unique' => 'Email sudah digunakan'
+            'email.unique' => 'Email sudah digunakan'
         ]);
 
         DB::beginTransaction();
@@ -53,7 +53,7 @@ class CustomersController extends Controller
             $newCustomer = Customer::create($validated);
             DB::commit();
 
-            return redirect()->route('customer.index')
+            return redirect()->route('customers.index')
                 ->with('success', 'Customer created successfully');
         } catch (\Exception $e) {
             DB::rollback();
@@ -113,7 +113,7 @@ class CustomersController extends Controller
 
             DB::commit();
 
-            return redirect()->route('customer.show', $customer->slug)
+            return redirect()->route('customers.show', $customer->slug)
                 ->with('success', 'Customer updated successfully');
         } catch (\Exception $e) {
             DB::rollback();
@@ -128,11 +128,11 @@ class CustomersController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Customer $customer)
+    public function destroy(String $id)
     {
-        Customer::where('customer', $customer)->delete();
+        Customer::where('id', $id)->delete();
 
-        return redirect()->route('customer.index')
+        return redirect()->route('customers.index')
             ->with('success', 'customer deleted successfully');
     }
 }

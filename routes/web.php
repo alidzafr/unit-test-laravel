@@ -33,6 +33,7 @@ Route::middleware('auth')->group(function () {
     Route::get('customers/{customer:slug}', [CustomersController::class, 'show'])->name('customers.show');
     Route::get('customers/{customer:slug}/edit', [CustomersController::class, 'edit'])->name('customers.edit');
     Route::put('customers/{customer}/update', [CustomersController::class, 'update'])->name('customers.update');
+    Route::delete('customers/{customer}', [CustomersController::class, 'destroy'])->name('customers.destroy');
 
     Route::get('products', [ProductController::class, 'index'])->name('products.index');
     Route::get('products/create', [ProductController::class, 'create'])->name('products.create')->middleware('role:owner');

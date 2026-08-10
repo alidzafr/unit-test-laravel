@@ -15,7 +15,8 @@ class Customer extends Model
         'name',
         'phone',
         'email',
-        'address'
+        'address',
+        'slug'
     ];
 
     #[Scope]

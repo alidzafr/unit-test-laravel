@@ -36,7 +36,7 @@
             
         @role('owner')
             <a href="{{ route('customers.create') }}" class="btn btn-primary rounded-xl">
-                + Add Merchant
+                + Tambah Pelanggan
             </a>
         @endrole
         
