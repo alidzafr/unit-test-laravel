@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Api\ProductController as ApiProductCtr;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'viewLogin'])->name('login');
@@ -42,6 +43,14 @@ Route::middleware('auth')->group(function () {
     Route::get('products/{product}/edit', [ProductController::class, 'edit'])->name('products.edit')->middleware('role:owner');
     Route::put('products/{product}/update', [ProductController::class, 'update'])->name('products.update')->middleware('role:owner');
     Route::delete('products/{product}', [ProductController::class, 'destroy'])->name('products.destroy')->middleware('role:owner');
+
+    Route::get('warehouses', [WarehouseController::class, 'index'])->name('warehouse.index');
+    Route::get('warehouses/create', [WarehouseController::class, 'create'])->name('warehouse.create')->middleware('role:owner');
+    Route::get('warehouses/{product}/detail', [WarehouseController::class, 'show'])->name('warehouse.show')->middleware('role:owner');
+    Route::post('warehouses', [WarehouseController::class, 'store'])->name('warehouse.store')->middleware('role:owner');
+    Route::get('warehouses/{product}/edit', [WarehouseController::class, 'edit'])->name('warehouse.edit')->middleware('role:owner');
+    Route::put('warehouses/{product}/update', [WarehouseController::class, 'update'])->name('warehouse.update')->middleware('role:owner');
+    Route::delete('warehouses/{product}', [WarehouseController::class, 'destroy'])->name('warehouse.destroy')->middleware('role:owner');
 });
 
 Route::get('/api/products/', [ApiProductCtr::class, 'index']);
