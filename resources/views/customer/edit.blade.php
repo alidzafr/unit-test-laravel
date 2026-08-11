@@ -14,10 +14,10 @@
         </div>
 
         <div class="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
-            @method('PUT')
-            @csrf
-
+            
             <form method="POST" action="{{ route('customers.update', $customer) }}" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+                @method('PUT')
+                @csrf
                 <div class="flex items-center gap-3 border-b border-gray-100 pb-4">
                     <div class="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary">
                         <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.8">

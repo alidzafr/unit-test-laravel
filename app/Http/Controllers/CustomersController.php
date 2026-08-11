@@ -48,9 +48,9 @@ class CustomersController extends Controller
         DB::beginTransaction();
 
         try {
-            $validated['slug'] = Str::slug($request->name);
-
             $newCustomer = Customer::create($validated);
+            $newCustomer->slug;
+
             DB::commit();
 
             return redirect()->route('customers.index')
@@ -107,9 +107,11 @@ class CustomersController extends Controller
                 $validated['email'] = $request['email'];
             }
 
-            // slug
-            $validated['slug'] = Str::slug($request->name);
             $customer->update($validated);
+            // slug
+            if ($request['name'] != $customer->name) {
+                $customer->slug;
+            }
 
             DB::commit();
 
