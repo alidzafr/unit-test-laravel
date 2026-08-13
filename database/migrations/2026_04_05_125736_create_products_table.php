@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('color')->nullable();
             $table->string('description')->nullable();
             $table->decimal('price', 8, 2);
-            $table->unsignedBigInteger('qty');
+            $table->unsignedBigInteger('stock');
             $table->string('photo')->nullable();
             $table->timestamps();
         });

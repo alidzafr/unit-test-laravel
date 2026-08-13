@@ -46,11 +46,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('warehouses', [WarehouseController::class, 'index'])->name('warehouse.index');
     Route::get('warehouses/create', [WarehouseController::class, 'create'])->name('warehouse.create')->middleware('role:owner');
-    Route::get('warehouses/{product}/detail', [WarehouseController::class, 'show'])->name('warehouse.show')->middleware('role:owner');
     Route::post('warehouses', [WarehouseController::class, 'store'])->name('warehouse.store')->middleware('role:owner');
-    Route::get('warehouses/{product}/edit', [WarehouseController::class, 'edit'])->name('warehouse.edit')->middleware('role:owner');
-    Route::put('warehouses/{product}/update', [WarehouseController::class, 'update'])->name('warehouse.update')->middleware('role:owner');
-    Route::delete('warehouses/{product}', [WarehouseController::class, 'destroy'])->name('warehouse.destroy')->middleware('role:owner');
+    Route::get('warehouses/{warehouse:slug}', [WarehouseController::class, 'show'])->name('warehouse.show')->middleware('role:owner');
+    Route::get('warehouses/{warehouse:slug}/edit', [WarehouseController::class, 'edit'])->name('warehouse.edit')->middleware('role:owner');
+    Route::put('warehouses/{warehouse}/update', [WarehouseController::class, 'update'])->name('warehouse.update')->middleware('role:owner');
+    Route::delete('warehouses/{warehouse}', [WarehouseController::class, 'destroy'])->name('warehouse.destroy')->middleware('role:owner');
 });
 
 Route::get('/api/products/', [ApiProductCtr::class, 'index']);

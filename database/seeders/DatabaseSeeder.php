@@ -5,7 +5,7 @@ namespace Database\Seeders;
 use App\Models\Product;
 use App\Models\User;
 use App\Models\Customer;
-use App\Models\Inventory;
+use App\Models\ProductWarehouse;
 use App\Models\Warehouse;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -33,6 +33,6 @@ class DatabaseSeeder extends Seeder
         Customer::factory(5)->create();
         // Product::factory(20)->create();
         // Warehouse::factory(3)->create();
-        Inventory::factory(5)->create();
+        ProductWarehouse::factory(5)->create();
     }
 }

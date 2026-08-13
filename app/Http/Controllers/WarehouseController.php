@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Inventory;
 use App\Models\Warehouse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -66,6 +67,7 @@ class WarehouseController extends Controller
      */
     public function show(Warehouse $warehouse)
     {
+        $warehouse->load('products');
         return view('warehouse.show', compact('warehouse'));
     }
 

@@ -25,7 +25,7 @@ class ProductFactory extends Factory
             'color' => fake()->safeColorName(),
             'description' => fake()->text(32),
             'price' => rand(100, 999),
-            'qty' => rand(0, 100)
+            'stock' => rand(0, 100)
         ];
     }
 }

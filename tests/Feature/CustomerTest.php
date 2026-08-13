@@ -49,7 +49,7 @@ class CustomerTest extends TestCase
             'address' => 'Bandung',
         ]);
 
-        $response->assertRedirect(route('customers.show', ['customer' => $customer]));
+        $response->assertRedirect(route('customers.show', $customer->fresh()->slug));
 
         $this->assertDatabaseHas('customers', [
             'id' => $customer->id,

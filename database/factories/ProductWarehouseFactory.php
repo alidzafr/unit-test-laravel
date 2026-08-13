@@ -2,22 +2,22 @@
 
 namespace Database\Factories;
 
-use App\Models\Inventory;
+use App\Models\ProductWarehouse;
 use App\Models\Product;
 use App\Models\Warehouse;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
- * @extends Factory<Inventory>
+ * @extends Factory<ProductWarehouse>
  */
-class InventoryFactory extends Factory
+class ProductWarehouseFactory extends Factory
 {
     /**
      * The name of the factory's corresponding model.
      *
      * @var string
      */
-    protected $model = Inventory::class;
+    protected $model = ProductWarehouse::class;
 
     /**
      * Define the model's default state.
@@ -29,7 +29,7 @@ class InventoryFactory extends Factory
         return [
             'warehouse_id' => Warehouse::factory(),
             'product_id' => Product::factory(),
-            'product_qty' => fake()->numberBetween(0, 500),
+            'stock' => fake()->numberBetween(0, 500),
         ];
     }
 }
