@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
-    <title>Document</title>
+    <title>{{ $title ?? 'App' }}</title>
 </head>
 <body>
   <div class="drawer lg:drawer-open">
@@ -20,25 +20,9 @@
         </div>
         
         <div class="flex-1">
-          <div class="flex flex-col">
-            <div class="prose">
-                <h2>
-                    Category Detail
-                </h2>
-            </div>
-            <div class="hidden lg:flex pt-0 breadcrumbs text-sm">
-                <ul>
-                    <li>
-                        <a href="#">
-                            Warehouse
-                        </a>
-                    </li>
-                    <li class="text-blue-500 font-bold">
-                        Here
-                    </li>
-                </ul>
-            </div>
-          </div>
+          <h2 class="text-2xl font-semibold text-gray-900">
+              {{ $title ?? 'App' }}
+          </h2>
         </div>
 
         <div class="flex-none">
@@ -77,6 +61,17 @@
               </span>
           </a>
         </li>
+        
+        <li>
+          <a href="{{ route('categories.index') }}" 
+          class="flex px-4 py-3 my-1 items-center space-x-2 rounded-xl hover:cursor-pointer
+          {{ request()->routeIs(['categories.index', 'categories.create', 'categories.store', 'categories.show']) ? 'active' : 'inactive' }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags size-5" viewBox="0 0 16 16"><path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z"/><path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z"/></svg>  
+            <span>
+                Categories
+            </span>
+          </a>
+        </li>
 
         <li>
           <a href="{{ route('products.index') }}" 
@@ -90,18 +85,29 @@
         </li>
         
         <li>
-          <a href="{{ route('categories.index') }}" 
+          <a href="{{ route('warehouse.index') }}" 
           class="flex px-4 py-3 my-1 items-center space-x-2 rounded-xl hover:cursor-pointer
-          {{ request()->routeIs(['categories.index', 'categories.create', 'categories.store', 'categories.show']) ? 'active' : 'inactive' }}">
+          {{ request()->routeIs(['warehouse.index', 'warehouse.create', 'warehouse.store', 'warehouse.show', 'warehouse.edit']) ? 'active' : 'inactive' }}">
           <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags size-5" viewBox="0 0 16 16"><path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z"/><path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z"/></svg>  
             <span>
-                Categories
+                Warehouse
             </span>
           </a>
         </li>
 
         <li class="mt-6 mb-2 font-bold text-gray-500">
           LAINNYA
+        </li>
+        
+        <li>
+          <a href="{{ route('customers.index') }}" 
+          class="flex px-4 py-3 my-1 items-center space-x-2 rounded-xl hover:cursor-pointer
+          {{ request()->routeIs(['customers.index', 'customers.create', 'customers.store', 'customers.show']) ? 'active' : 'inactive' }}">
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-tags size-5" viewBox="0 0 16 16"><path d="M3 2v4.586l7 7L14.586 9l-7-7zM2 2a1 1 0 0 1 1-1h4.586a1 1 0 0 1 .707.293l7 7a1 1 0 0 1 0 1.414l-4.586 4.586a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 2 6.586z"/><path d="M5.5 5a.5.5 0 1 1 0-1 .5.5 0 0 1 0 1m0 1a1.5 1.5 0 1 0 0-3 1.5 1.5 0 0 0 0 3M1 7.086a1 1 0 0 0 .293.707L8.75 15.25l-.043.043a1 1 0 0 1-1.414 0l-7-7A1 1 0 0 1 0 7.586V3a1 1 0 0 1 1-1z"/></svg>  
+            <span>
+                Customers
+            </span>
+          </a>
         </li>
 
         <li>

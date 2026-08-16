@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Tambahkan Produk">
     <form method="POST" action="{{ route('products.store') }}" enctype="multipart/form-data">
         @csrf
         {{-- Desc --}}

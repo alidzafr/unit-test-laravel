@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Detail Produk">
     <div class="flex mb-4 justify-end">
         <a class="btn btn-neutral btn-outline" href="{{ route('products.edit', $product->id) }}">Edit</a>
     </div>

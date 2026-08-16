@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Ubah Produk">
     <!-- You can open the modal using ID.showModal() method -->
     <div class="flex mb-4 justify-end">
         <button class="btn btn-outline btn-error" onclick="my_modal_3.showModal()">Delete</button>

@@ -1,15 +1,8 @@
-<x-layout>
+<x-layout title="Ubah Gudang">
     <div class="space-y-6">
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-                <a href="{{ route('warehouse.show', $warehouse->slug) }}" class="text-sm font-medium text-primary hover:underline">
-                    ← Kembali ke detail gudang
-                </a>
-                <h1 class="text-2xl font-semibold text-gray-900">Edit gudang</h1>
-                <p class="text-sm text-gray-500">Perbarui informasi gudang dengan form yang lebih rapi.</p>
-            </div>
-            <a href="{{ route('warehouse.show', $warehouse->slug) }}" class="btn btn-soft btn-secondary rounded-xl">
-                Batal
+        <div class="flex flex-col gap-3 justify-between sm:flex-row sm:items-center sm:justify-between">
+            <a href="{{ route('warehouse.show', $warehouse->slug) }}" class="btn btn-soft btn-primary rounded-xl">
+                Kembali
             </a>
         </div>
 
@@ -24,10 +17,12 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a7.5 7.5 0 0115 0" />
                         </svg>
                     </div>
-                    <div>
+                    <div class="flex-1">
                         <h3 class="text-lg font-semibold text-gray-900">Informasi gudang</h3>
                         <p class="text-sm text-gray-500">Ubah nama, kontak, email, dan alamat.</p>
                     </div>
+
+                    <label for="my_modal_6" class="btn btn-soft btn-error rounded-xl">Hapus gudang</label>
                 </div>
 
                 @if ($errors->any())
@@ -86,11 +81,10 @@
                         <button type="submit" class="btn btn-primary rounded-xl">
                             Simpan perubahan
                         </button>
-                        <a href="{{ route('warehouse.show', $warehouse->slug) }}" class="btn btn-soft btn-secondary rounded-xl">
+                        <a href="{{ route('warehouse.show', $warehouse->slug) }}" class="btn rounded-xl">
                             Batal
                         </a>
                     </div>
-                    <label for="my_modal_6" class="btn btn-error rounded-xl">Hapus gudang</label>
                 </div>
                 
             </form>
@@ -119,12 +113,12 @@
             <p class="py-4">Data gudang akan dihapus, anda yakin?</p>
             
             <div class="modal-action">
-                <label for="my_modal_6" class="btn">Batal</label>
                 <form action="{{ route('warehouse.destroy', $warehouse ) }}" method="POST">
                     @method('DELETE')
                     @csrf
                     <button class="btn btn-error">Hapus</button>
                 </form>
+                <label for="my_modal_6" class="btn">Batal</label>
             </div>
         </div>
                 

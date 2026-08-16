@@ -1,11 +1,11 @@
-<x-layout>
+<x-layout title="Detail Gudang">
     <div class="space-y-6">
 
-        <div class="flex justify-end gap-2">
-            <a href="{{ route('warehouse.index') }}" class="btn btn-soft btn-secondary rounded-xl">
+        <div class="flex justify-between">
+            <a href="{{ route('warehouse.index') }}" class="btn btn-soft btn-primary rounded-xl">
                 Kembali
             </a>
-            <a href="{{ route('warehouse.edit', $warehouse->slug) }}" class="btn btn-warning rounded-xl">
+            <a href="{{ route('warehouse.edit', $warehouse->slug) }}" class="btn btn-soft btn-secondary rounded-xl">
                 Edit
             </a>
         </div>
