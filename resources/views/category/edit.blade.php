@@ -1,13 +1,8 @@
-<x-layout title="Edit Kategori">
+<x-layout title="Ubah Kategori">
     <div class="space-y-6">
         {{-- Top row title --}}
-        <div class="flex w-full justify-between items-center">
-            
-            <div class="flex flex-col gap-3 justify-between sm:flex-row sm:items-center sm:justify-between">
-                <a href="{{ route('warehouse.index') }}" class="btn btn-soft btn-primary rounded-xl">
-                    Kembali
-                </a>
-            </div>
+        <div class="flex w-full gap-3 justify-between items-center">
+            <label for="my_modal_7" class="btn btn-soft btn-primary rounded-xl">Kembali</label>
         </div>
         
         <div class="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
@@ -74,9 +69,8 @@
                     <button type="submit" class="btn btn-primary rounded-xl">
                         Simpan perubahan
                     </button>
-                    <a href="{{ route('categories.show', $category->slug) }}" class="btn btn-soft btn-secondary rounded-xl">
-                        Batal
-                    </a>
+                    <label for="my_modal_7" class="btn btn-soft btn-secondary rounded-xl">Batal</label>
+
                 </div>
 
             </form>
@@ -103,9 +97,30 @@
         <div class="modal" role="dialog">
             <div class="modal-box">
                 <h3 class="text-lg font-bold">Caution</h3>
+                <p class="py-4">Data akan dihapus</p>
+                <div class="modal-action">
+                    <label for="my_modal_6" class="btn rounded-xl">
+                        Batal
+                    </label>
+                    <form action="">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-error rounded-xl">Hapus</button>
+                    </form>
+                </div>
+            </div>
+            {{-- box shadow actually close button too--}}
+            <label class="modal-backdrop" for="my_modal_6"></label>
+        </div>
+
+        <!-- Put this part before </body> tag -->
+        <input type="checkbox" id="my_modal_7" class="modal-toggle" />
+        <div class="modal" role="dialog">
+            <div class="modal-box">
+                <h3 class="text-lg font-bold">Caution</h3>
                 <p class="py-4">All Changes will be loss.</p>
                 <div class="modal-action">
-                    <label for="my_modal_6" class="btn">
+                    <label for="my_modal_7" class="btn">
                         Cancel
                     </label>
                     <a href="{{ route('categories.show', $category->slug) }}" class="btn btn-error">

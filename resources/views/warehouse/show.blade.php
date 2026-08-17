@@ -85,13 +85,14 @@
                         <td>{{ $product->category->name }}</td>
                         <td>{{ $product->pivot->stock }}</td>
                         <td>
-                            <form action="{{ route('products.destroy', $product->id)}}" method="POST">
-                                @method('DELETE')
-                                @csrf
-                                <button class="btn btn-soft btn-secondary rounded-xl opacity-0 group-hover:opacity-100 transition-opacity">
-                                    Delete
-                                </button>
-                            </form>
+                            <div class="flex gap-2">
+                                <a class="btn btn-soft btn-info rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" href="{{ route('products.show', $product->id) }}">
+                                    Lihat
+                                </a>
+                                <a class="btn btn-soft btn-warning rounded-xl opacity-0 group-hover:opacity-100 transition-opacity" href="{{ route('products.edit', $product->id) }}">
+                                    Edit
+                                </a>
+                            </div>
                         </td>
                     </tr>
                     @endforeach

@@ -3,9 +3,7 @@
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
                 <div class="flex flex-col gap-3 justify-between sm:flex-row sm:items-center sm:justify-between">
-                    <a href="{{ route('customers.show', $customer->slug) }}" class="btn btn-soft btn-primary rounded-xl">
-                        Kembali
-                    </a>
+                    <label for="my_modal_7" class="btn btn-soft btn-primary rounded-xl">Kembali</label>
                 </div>
             </div>
         </div>
@@ -95,9 +93,10 @@
                     <button type="submit" class="btn btn-primary rounded-xl">
                         Simpan perubahan
                     </button>
-                    <a href="{{ route('customers.show', $customer->slug) }}" class="btn btn-soft btn-secondary rounded-xl">
+                    <label for="my_modal_7" class="btn btn-soft btn-secondary rounded-xl">Batal</label>
+                    {{-- <a href="{{ route('customers.show', $customer->slug) }}" class="btn btn-soft btn-secondary rounded-xl">
                         Batal
-                    </a>
+                    </a> --}}
                 </div>
                 
             </form>
@@ -129,10 +128,25 @@
                 <form action="{{ route('customers.destroy', $customer->id ) }}" method="POST">
                     @method('DELETE')
                     @csrf
-                    <button class="btn btn-error">Hapus</button>
+                    <button class="btn btn-error rounded-xl">Hapus</button>
                 </form>
-                <label for="my_modal_6" class="btn">Batal</label>
+                <label for="my_modal_6" class="btn rounded-xl">Batal</label>
             </div>
         </div>
     </div>
+
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="my_modal_7" class="modal-toggle" />
+    <div class="modal" role="dialog">
+        <div class="modal-box">
+            <h3 class="text-lg font-bold">Perhatian!</h3>
+            <p class="py-4">Perubahan tidak akan disimpan, anda yakin ?</p>
+            
+            <div class="modal-action">
+                <a class="btn btn-error rounded-xl" href="{{ route('customers.show', $customer->slug) }}">Ya</a>
+                <label for="my_modal_7" class="btn rounded-xl">Batal</label>
+            </div>
+        </div>
+    </div>
+    
 </x-layout>

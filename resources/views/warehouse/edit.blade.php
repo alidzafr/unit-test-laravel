@@ -1,9 +1,7 @@
 <x-layout title="Ubah Gudang">
     <div class="space-y-6">
         <div class="flex flex-col gap-3 justify-between sm:flex-row sm:items-center sm:justify-between">
-            <a href="{{ route('warehouse.show', $warehouse->slug) }}" class="btn btn-soft btn-primary rounded-xl">
-                Kembali
-            </a>
+            <label for="my_modal_7" class="btn btn-soft btn-primary rounded-xl">Kembali</label>
         </div>
 
         <div class="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
@@ -81,9 +79,7 @@
                         <button type="submit" class="btn btn-primary rounded-xl">
                             Simpan perubahan
                         </button>
-                        <a href="{{ route('warehouse.show', $warehouse->slug) }}" class="btn rounded-xl">
-                            Batal
-                        </a>
+                        <label for="my_modal_7" class="btn btn-soft rounded-xl">Batal</label>
                     </div>
                 </div>
                 
@@ -121,6 +117,20 @@
                 <label for="my_modal_6" class="btn">Batal</label>
             </div>
         </div>
-                
     </div>
+    
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="my_modal_7" class="modal-toggle" />
+    <div class="modal" role="dialog">
+        <div class="modal-box">
+            <h3 class="text-lg font-bold">Perhatian!</h3>
+            <p class="py-4">Perubahan akan hilang, anda yakin?</p>
+            
+            <div class="modal-action">
+                <a class="btn btn-primary rounded-xl" href="{{ route('warehouse.show', $warehouse->slug) }}">Ya</a>
+                <label for="my_modal_7" class="btn rounded-xl">Batal</label>
+            </div>
+        </div>
+    </div>
+
 </x-layout>
