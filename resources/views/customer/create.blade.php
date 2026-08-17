@@ -1,16 +1,11 @@
-<x-layout>
+<x-layout title="Tambahkan Pelanggan">
     <div class="space-y-6">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-                {{-- <a href="{{ route('customers.show', $customer->slug) }}" class="text-sm font-medium text-primary hover:underline">
-                    ← Kembali ke detail pelanggan
-                </a> --}}
-                <h1 class="text-2xl font-semibold text-gray-900">Edit Pelanggan</h1>
-                <p class="text-sm text-gray-500">Perbarui informasi pelanggan dengan form yang lebih rapi.</p>
+            <div class="flex flex-col gap-3 justify-between sm:flex-row sm:items-center sm:justify-between">
+                <a href="{{ route('customers.index')}}" class="btn btn-soft btn-primary rounded-xl">
+                    Kembali
+                </a>
             </div>
-            <a href="{{ route('customers.index') }}" class="btn btn-soft btn-secondary rounded-xl">
-                Batal
-            </a>
         </div>
 
         <div class="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">

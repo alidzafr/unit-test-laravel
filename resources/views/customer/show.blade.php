@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Detail Pelanggan">
     <div class="space-y-6">
         {{-- <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
@@ -19,11 +19,11 @@
             </div>
         </div> --}}
 
-        <div class="flex justify-end gap-2">
-            <a href="{{ route('customers.index') }}" class="btn btn-soft btn-secondary rounded-xl">
+        <div class="flex justify-between">
+            <a href="{{ route('customers.index') }}" class="btn btn-soft btn-primary rounded-xl">
                 Kembali
             </a>
-            <a href="{{ route('customers.edit', $customer->slug) }}" class="btn btn-warning rounded-xl">
+            <a href="{{ route('customers.edit', $customer->slug) }}" class="btn btn-soft btn-secondary rounded-xl">
                 Edit
             </a>
         </div>

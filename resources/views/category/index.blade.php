@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Kategori">
     {{-- Search Bar --}}
     <div class="flex mb-4 justify-between space-x-4">
         <form>

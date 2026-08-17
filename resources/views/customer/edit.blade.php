@@ -1,16 +1,13 @@
-<x-layout>
+<x-layout title="Edit Pelanggan">
     <div class="space-y-6">
         <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
             <div>
-                <a href="{{ route('customers.show', $customer->slug) }}" class="text-sm font-medium text-primary hover:underline">
-                    ← Kembali ke detail pelanggan
-                </a>
-                <h1 class="text-2xl font-semibold text-gray-900">Edit Pelanggan</h1>
-                <p class="text-sm text-gray-500">Perbarui informasi pelanggan dengan form yang lebih rapi.</p>
+                <div class="flex flex-col gap-3 justify-between sm:flex-row sm:items-center sm:justify-between">
+                    <a href="{{ route('customers.show', $customer->slug) }}" class="btn btn-soft btn-primary rounded-xl">
+                        Kembali
+                    </a>
+                </div>
             </div>
-            <a href="{{ route('customers.show', $customer->slug) }}" class="btn btn-soft btn-secondary rounded-xl">
-                Batal
-            </a>
         </div>
 
         <div class="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
@@ -24,10 +21,11 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a7.5 7.5 0 0115 0" />
                         </svg>
                     </div>
-                    <div>
+                    <div class="flex-1">
                         <h3 class="text-lg font-semibold text-gray-900">Informasi pelanggan</h3>
                         <p class="text-sm text-gray-500">Ubah nama, kontak, email, dan alamat.</p>
                     </div>
+                    <label for="my_modal_6" class="btn btn-error rounded-xl">Hapus Pelanggan</label>
                 </div>
 
                 @if ($errors->any())
@@ -92,17 +90,14 @@
                         </div>
                     </div>
                 </div>
-
-                <div class="flex mt-8 justify-between">
-                    <div class="flex flex-wrap gap-3">
-                        <button type="submit" class="btn btn-primary rounded-xl">
-                            Simpan perubahan
-                        </button>
-                        <a href="{{ route('customers.show', $customer->slug) }}" class="btn btn-soft btn-secondary rounded-xl">
-                            Batal
-                        </a>
-                    </div>
-                    <label for="my_modal_6" class="btn btn-error rounded-xl">Hapus Pelanggan</label>
+                
+                <div class="flex flex-wrap mt-8 gap-3">
+                    <button type="submit" class="btn btn-primary rounded-xl">
+                        Simpan perubahan
+                    </button>
+                    <a href="{{ route('customers.show', $customer->slug) }}" class="btn btn-soft btn-secondary rounded-xl">
+                        Batal
+                    </a>
                 </div>
                 
             </form>
@@ -131,14 +126,13 @@
             <p class="py-4">Data pelanggan akan dihapus, anda yakin?</p>
             
             <div class="modal-action">
-                <label for="my_modal_6" class="btn">Batal</label>
                 <form action="{{ route('customers.destroy', $customer->id ) }}" method="POST">
                     @method('DELETE')
                     @csrf
                     <button class="btn btn-error">Hapus</button>
                 </form>
+                <label for="my_modal_6" class="btn">Batal</label>
             </div>
         </div>
-                
     </div>
 </x-layout>
