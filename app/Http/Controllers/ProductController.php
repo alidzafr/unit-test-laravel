@@ -56,7 +56,7 @@ class ProductController extends Controller
             'category_id' => 'required|max:1000|integer',
             'color' => 'required|max:25|string',
             'description' => 'required|max:1000|string',
-            'qty' => 'required|max:1000000|integer',
+            'stock' => 'required|max:1000000|integer',
             'photo' => 'required|image|mimes:png,jpg,svg'
         ]);
         DB::beginTransaction();
@@ -118,7 +118,7 @@ class ProductController extends Controller
             'category_id' => 'required|max:1000|integer',
             'color' => 'required|max:25|string',
             'description' => 'required|max:1000|string',
-            'qty' => 'required|max:1000000|integer',
+            'stock' => 'required|max:1000000|integer',
             'photo' => 'sometimes|image|mimes:png,jpg,svg'
         ]);
 
