@@ -1,4 +1,4 @@
-<x-layout>
+<x-layout title="Tambahkan Kategori">
     {{-- Top row title --}}
     <div class="flex mb-8 w-full justify-between items-center">
         <div class="prose">
