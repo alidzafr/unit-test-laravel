@@ -51,7 +51,11 @@
                     <div class="grid grid-cols-3 gap-2">    
                         {{-- Upload --}}
                         <div class="flex items-center h-full bg-cyan-400">
-                            <img src="{{Storage::url(($product->photo))}}" alt ="album">
+                            @if ($product->photo)
+                            <img src="{{Storage::url(($product->photo))}}" class="img-preview w-xl">
+                            @else
+                            <img class="img-preview w-xl">
+                            @endif
                         </div>
                         {{-- Upload column --}}
                         <div class="flex col-span-2 justify-center rounded-xl border border-gray-300 px-6 py-10 @error('photo') outline-2 outline-red-500 @enderror">
@@ -63,7 +67,7 @@
                                         <input 
                                             id="photo" type="file" 
                                             name="photo" value="{{ old('photo') }}"
-                                            class="sr-only" 
+                                            onchange="previewImage()" class="sr-only" 
                                         />
                                     </label>
                                     <p class="pl-1">or drag and drop</p>
@@ -160,10 +164,10 @@
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Description</legend>
                     <textarea 
-                        name="description" type="text" value="{{ $product->description }}"
+                        name="description" type="text"
                         class="textarea h-24 rounded-xl w-full @error('description') outline-2 outline-red-500 @enderror" 
                         placeholder="Type here"
-                    ></textarea>
+                    >{{ $product->description }}</textarea>
                     @error('description')
                     <div class="label text-sm text-red-600">{{ $message }}</div>
                     @enderror    
@@ -202,6 +206,5 @@
             <label class="modal-backdrop" for="my_modal_6"></label>
         </div>
     </div>
-    
     
 </x-layout>

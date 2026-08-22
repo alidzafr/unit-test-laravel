@@ -2,24 +2,27 @@
     <div class="space-y-6">
         {{-- Top row title --}}
         <div class="flex w-full gap-3 justify-between items-center">
-            <label for="my_modal_7" class="btn btn-soft btn-primary rounded-xl">Kembali</label>
+            <label for="my_modal_6" class="btn btn-soft btn-primary rounded-xl">Kembali</label>
         </div>
         
-        <div class="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
+        <div class="grid gap-6 2xl:grid-cols-[1.3fr_0.7fr]">
             {{-- Card --}}
             <form method="POST" enctype="multipart/form-data"
                 action="{{ route('products.store') }}" 
                 class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                 @csrf
-                {{-- Title Card--}}
+                {{-- Title--}}
                 <div class="flex items-center gap-3 border-b border-gray-100 pb-4">
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900">Tambah Produk Baru</h3>
                     </div>
                 </div>
-                {{-- Content Card --}}
+                {{-- Foto --}}
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Foto Produk</legend>
+                    <div class="flex justify-center">
+                        <img class="img-preview w-xl">
+                    </div>
                     <div class="flex justify-center rounded-xl border border-gray-300 px-6 py-10 @error('photo') outline-2 outline-red-500 @enderror">
                         <div class="text-center">
                             <svg viewBox="0 0 24 24" fill="currentColor" data-slot="icon" aria-hidden="true" class="mx-auto size-12 text-gray-600"><path d="M1.5 6a2.25 2.25 0 0 1 2.25-2.25h16.5A2.25 2.25 0 0 1 22.5 6v12a2.25 2.25 0 0 1-2.25 2.25H3.75A2.25 2.25 0 0 1 1.5 18V6ZM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0 0 21 18v-1.94l-2.69-2.689a1.5 1.5 0 0 0-2.12 0l-.88.879.97.97a.75.75 0 1 1-1.06 1.06l-5.16-5.159a1.5 1.5 0 0 0-2.12 0L3 16.061Zm10.125-7.81a1.125 1.125 0 1 1 2.25 0 1.125 1.125 0 0 1-2.25 0Z" clip-rule="evenodd" fill-rule="evenodd" /></svg>
@@ -29,7 +32,7 @@
                                     <input 
                                         id="photo" type="file" 
                                         name="photo" value="{{ old('photo') }}"
-                                        class="sr-only" 
+                                        onchange="previewImage()" class="sr-only" 
                                     />
                                 </label>
                                 <p class="pl-1">or drag and drop</p>
@@ -41,7 +44,7 @@
                         <div class="label text-sm text-red-600">{{ $message }}</div>
                     @enderror
                 </fieldset>
-
+                {{-- Name --}}
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Nama Produk</legend>
                     <input 
@@ -53,7 +56,7 @@
                         <div class="label text-sm text-red-600">{{ $message }}</div>
                     @enderror
                 </fieldset>
-
+                {{-- Brand --}}
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Brand</legend>
                     <input 
@@ -65,7 +68,7 @@
                         <div class="label text-sm text-red-600">{{ $message }}</div>
                     @enderror
                 </fieldset>
-
+                {{-- Kategori --}}
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Kategori</legend>
                     <div class="flex items-center gap-4">
@@ -85,7 +88,7 @@
                     <div class="label text-sm text-red-600">{{ $message }}</div>
                     @enderror 
                 </fieldset>
-                
+                {{-- Warna --}}
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Color</legend>
                     <input 
@@ -97,7 +100,7 @@
                     <div class="label text-sm text-red-600">{{ $message }}</div>
                     @enderror    
                 </fieldset>
-                
+                {{-- Harga --}}
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Price</legend>
                     <input 
@@ -109,7 +112,7 @@
                     <div class="label text-sm text-red-600">{{ $message }}</div>
                     @enderror    
                 </fieldset>
-                
+                {{-- Stock --}}
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Stock</legend>
                     <input 
@@ -121,14 +124,14 @@
                     <div class="label text-sm text-red-600">{{ $message }}</div>
                     @enderror    
                 </fieldset>
-                
+                {{-- Deskripsi --}}
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Description</legend>
                     <textarea 
-                        name="description" type="text" value="{{ old('description') }}"
+                        name="description" type="text"
                         class="textarea h-24 rounded-xl w-full @error('description') outline-2 outline-red-500 @enderror" 
                         placeholder="Type here"
-                    ></textarea>
+                    >{{ old('description') }}</textarea>
                     @error('description')
                     <div class="label text-sm text-red-600">{{ $message }}</div>
                     @enderror    
@@ -148,8 +151,8 @@
             </div>
         </div>
 
-        <!-- Put this part before </body> tag -->
-        <input type="checkbox" id="my_modal_7" class="modal-toggle" />
+        <!-- Discard button -->
+        <input type="checkbox" id="my_modal_6" class="modal-toggle" />
         <div class="modal" role="dialog">
             <div class="modal-box">
                 <h3 class="text-lg font-bold">Caution</h3>
@@ -165,6 +168,42 @@
             </div>
             {{-- box shadow actually close button too--}}
             <label class="modal-backdrop" for="my_modal_6"></label>
+        </div>
+
+        <!-- Create Category Button -->
+        <input type="checkbox" id="my_modal_7" class="modal-toggle" />
+        <div class="modal" role="dialog">
+            <div class="modal-box">
+                <form action="{{ route('categories.store') }}" method="POST">
+                    @csrf
+                    <h3 class="mb-3 text-lg font-bold">Create new category</h3>
+                    <input name="name" 
+                            type="text"
+                            value="{{ old('name') }}"
+                            class="input w-md @error('name') border-error @enderror" 
+                            placeholder="Type here">
+
+                    @error('name')
+                        <p class="mt-1 text-error">
+                            {{ $message }}
+                        </p>
+                        <script>
+                            document.getElementById('my_modal_7').checked = true;
+                        </script>
+                    @enderror
+
+                    <div class="modal-action">
+                        <button type="submit" class="btn btn-primary">
+                            Save Category
+                        </button>
+                        <label for="my_modal_7" class="btn">
+                            Cancel
+                        </label>
+                    </div>
+                </form>
+            </div>
+            {{-- box shadow actually close button too--}}
+            <label class="modal-backdrop" for="my_modal_7"></label>
         </div>
     </div>
 
