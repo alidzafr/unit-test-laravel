@@ -158,7 +158,7 @@
                 <h3 class="text-lg font-bold">Caution</h3>
                 <p class="py-4">All Changes will be loss.</p>
                 <div class="modal-action">
-                    <label for="my_modal_7" class="btn">
+                    <label for="my_modal_6" class="btn">
                         Cancel
                     </label>
                     <a href="{{ route('products.index') }}" class="btn btn-error">

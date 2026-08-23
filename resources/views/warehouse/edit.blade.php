@@ -52,7 +52,7 @@
                     <div>
                         <label for="phone" class="block text-sm font-medium text-gray-900">Telepon</label>
                         <div class="mt-2">
-                            <input id="phone" type="text" name="phone" autocomplete="tel"
+                            <input id="phone" type="number" name="phone" autocomplete="tel"
                                 class="@error('phone') outline-red-500 @else outline-gray-300 @enderror block w-full rounded-xl bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm"
                                 value="{{ old('phone', $warehouse->phone) }}" />
                             @error('phone')

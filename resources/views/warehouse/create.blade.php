@@ -1,12 +1,12 @@
-<x-layout title="Tambahkan Pelanggan">
+<x-layout title="Ubah Gudang">
     <div class="space-y-6">
-        <div class="flex w-full gap-3 justify-between items-center">
-            <label for="my_modal_6" class="btn btn-soft btn-primary rounded-xl">Kembali</label>
+        <div class="flex flex-col gap-3 justify-between sm:flex-row sm:items-center sm:justify-between">
+            <label for="my_modal_7" class="btn btn-soft btn-primary rounded-xl">Kembali</label>
         </div>
 
         <div class="grid gap-6 lg:grid-cols-[1.3fr_0.7fr]">
             
-            <form method="POST" action="{{ route('customers.store') }}" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
+            <form method="POST" action="{{ route('warehouse.store') }}" class="rounded-2xl border border-gray-200 bg-white p-6 shadow-sm">
                 @csrf
                 <div class="flex items-center gap-3 border-b border-gray-100 pb-4">
                     <div class="flex h-11 w-11 items-center justify-center rounded-full bg-primary/10 text-primary">
@@ -14,8 +14,8 @@
                             <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.25a7.5 7.5 0 0115 0" />
                         </svg>
                     </div>
-                    <div>
-                        <h3 class="text-lg font-semibold text-gray-900">Informasi pelanggan</h3>
+                    <div class="flex-1">
+                        <h3 class="text-lg font-semibold text-gray-900">Informasi gudang</h3>
                         <p class="text-sm text-gray-500">Ubah nama, kontak, email, dan alamat.</p>
                     </div>
                 </div>
@@ -35,22 +35,12 @@
 
                 <div class="mt-6 grid gap-5 sm:grid-cols-2">
                     <div class="sm:col-span-2">
-                        <label for="name" class="block text-sm font-medium text-gray-900">Nama pelanggan</label>
+                        <label for="name" class="block text-sm font-medium text-gray-900">Nama gudang</label>
                         <div class="mt-2">
                             <input id="name" type="text" name="name" autocomplete="name"
-                                class="@error('name') outline-red-500 @else outline-gray-300 @enderror block w-full rounded-xl bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm"/>
+                                class="@error('name') outline-red-500 @else outline-gray-300 @enderror block w-full rounded-xl bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm"
+                                value="{{ old('name') }}" />
                             @error('name')
-                                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div>
-                        <label for="email" class="block text-sm font-medium text-gray-900">Email</label>
-                        <div class="mt-2">
-                            <input id="email" type="email" name="email" autocomplete="email"
-                                class="@error('email') outline-red-500 @else outline-gray-300 @enderror block w-full rounded-xl bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm"/>
-                            @error('email')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
                         </div>
@@ -59,8 +49,9 @@
                     <div>
                         <label for="phone" class="block text-sm font-medium text-gray-900">Telepon</label>
                         <div class="mt-2">
-                            <input id="phone" type="text" name="phone" autocomplete="tel"
-                                class="@error('phone') outline-red-500 @else outline-gray-300 @enderror block w-full rounded-xl bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm"/>
+                            <input id="phone" type="number" name="phone" autocomplete="tel"
+                                class="@error('phone') outline-red-500 @else outline-gray-300 @enderror block w-full rounded-xl bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm"
+                                value="{{ old('phone') }}" />
                             @error('phone')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -72,7 +63,7 @@
                         <div class="mt-2">
                             <textarea id="address" name="address" rows="5"
                                 class="@error('address') outline-red-500 @else outline-gray-300 @enderror block w-full rounded-xl bg-white px-3 py-2.5 text-base text-gray-900 outline-1 -outline-offset-1 placeholder:text-gray-400 focus:outline-2 focus:-outline-offset-2 focus:outline-primary sm:text-sm"
-                                placeholder="Masukkan alamat pelanggan"></textarea>
+                                placeholder="Masukkan alamat gudang">{{ old('address') }}</textarea>
                             @error('address')
                                 <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
                             @enderror
@@ -80,13 +71,13 @@
                     </div>
                 </div>
 
-                <div class="flex flex-wrap gap-3 mt-8">
-                    <button type="submit" class="btn btn-primary rounded-xl">
-                        Simpan perubahan
-                    </button>
-                    <label for="my_modal_6" class="btn btn-soft btn-secondary rounded-xl">
-                        Batal
-                    </label>
+                <div class="flex mt-8 justify-between">
+                    <div class="flex flex-wrap gap-3">
+                        <button type="submit" class="btn btn-primary rounded-xl">
+                            Simpan perubahan
+                        </button>
+                        <label for="my_modal_7" class="btn btn-soft rounded-xl">Batal</label>
+                    </div>
                 </div>
                 
             </form>
@@ -98,31 +89,23 @@
                         <p class="font-medium text-gray-700">Catatan</p>
                         <p class="mt-1 text-sm">Pastikan semua form terisi dengan benar sebelum menekan tombol simpan.</p>
                     </div>
-                    <div class="rounded-lg bg-gray-50 px-3 py-3">
-                        {{-- <p class="text-gray-500">Terakhir diperbarui</p>
-                        <p class="mt-1 font-medium text-gray-700">{{ $customer->updated_at ? $customer->updated_at->format('d M Y, H:i') : '-' }}</p> --}}
-                    </div>
                 </div>
             </div>
         </div>
     </div>
-
-    <!-- Discard button -->
-    <input type="checkbox" id="my_modal_6" class="modal-toggle" />
+    
+    <!-- Put this part before </body> tag -->
+    <input type="checkbox" id="my_modal_7" class="modal-toggle" />
     <div class="modal" role="dialog">
         <div class="modal-box">
-            <h3 class="text-lg font-bold">Perhatian</h3>
-            <p class="py-4">Data tidak akan disimpan, anda yakin ?</p>
+            <h3 class="text-lg font-bold">Perhatian!</h3>
+            <p class="py-4">Perubahan akan hilang, anda yakin?</p>
+            
             <div class="modal-action">
-                <label for="my_modal_6" class="btn">
-                    Batal
-                </label>
-                <a href="{{ route('customers.index') }}" class="btn btn-error">
-                    Ya
-                </a>
+                <a class="btn btn-primary rounded-xl" href="{{ route('warehouse.index') }}">Ya</a>
+                <label for="my_modal_7" class="btn rounded-xl">Batal</label>
             </div>
         </div>
-        {{-- box shadow actually close button too--}}
-        <label class="modal-backdrop" for="my_modal_6"></label>
     </div>
+
 </x-layout>
