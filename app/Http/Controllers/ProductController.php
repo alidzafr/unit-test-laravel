@@ -6,6 +6,7 @@ use App\Models\Product;
 use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 
@@ -126,6 +127,9 @@ class ProductController extends Controller
 
         try {
             if ($request->hasFile('photo')) {
+                if ($request->oldImage) {
+                    Storage::disk('public')->delete($request->oldImage);
+                }
                 $productPath = $request->file('photo')->store('product_photos', 'public');
                 $validated['photo'] = $productPath;
             }
@@ -148,9 +152,12 @@ class ProductController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Product $product)
     {
-        Product::where('id', $id)->delete();
+        if ($product->photo) {
+            Storage::disk('public')->delete($product->photo);
+        }
+        Product::destroy($product->id);
 
         return redirect()->route('products.index');
     }

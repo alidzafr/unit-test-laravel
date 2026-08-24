@@ -14,7 +14,7 @@
                 <h3 class="text-lg font-bold">Delete Confirm</h3>
                 <p class="py-4">Are you sure want to delete this product ?</p>
                 <div class="flex justify-center space-x-2">
-                    <form action="{{ route('products.destroy', $product->id) }}" method="POST">
+                    <form action="{{ route('products.destroy', $product) }}" method="POST">
                         @method('DELETE')
                         @csrf
                         <button class="btn btn-accent">
@@ -48,6 +48,7 @@
                 {{-- Content Card --}}
                 <fieldset class="fieldset">
                     <legend class="fieldset-legend">Foto Produk</legend>
+                    <input type="hidden" name="oldImage" value="{{ $product->photo }}">
                     <div class="grid grid-cols-3 gap-2">    
                         {{-- Upload --}}
                         <div class="flex items-center h-full bg-cyan-400">

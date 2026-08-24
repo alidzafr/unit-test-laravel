@@ -15,7 +15,7 @@
                         <h3 class="text-lg font-semibold text-gray-900">Informasi kategori</h3>
                         <p class="text-sm text-gray-500">Ubah nama dan tagline Kategori.</p>
                     </div>
-                    <label for="my_modal_6" class="btn btn-error rounded-xl">Hapus kategori</label>
+                    {{-- <label for="my_modal_6" class="btn btn-error rounded-xl">Hapus kategori</label> --}}
                 </div>
                     
                 @if ($errors->any())
@@ -92,8 +92,8 @@
             
         </div>
 
-        <!-- Put this part before </body> tag -->
-        <input type="checkbox" id="my_modal_6" class="modal-toggle" />
+        <!-- Delete -->
+        {{-- <input type="checkbox" id="my_modal_6" class="modal-toggle" />
         <div class="modal" role="dialog">
             <div class="modal-box">
                 <h3 class="text-lg font-bold">Caution</h3>
@@ -102,16 +102,16 @@
                     <label for="my_modal_6" class="btn rounded-xl">
                         Batal
                     </label>
-                    <form action="">
+                    <form action="{{ route('categories.destroy', $product) }}">
                         @csrf
                         @method('DELETE')
                         <button type="submit" class="btn btn-error rounded-xl">Hapus</button>
                     </form>
                 </div>
             </div>
-            {{-- box shadow actually close button too--}}
+            <!-- box shadow actually close button too  -->
             <label class="modal-backdrop" for="my_modal_6"></label>
-        </div>
+        </div> --}}
 
         <!-- Put this part before </body> tag -->
         <input type="checkbox" id="my_modal_7" class="modal-toggle" />
@@ -129,7 +129,7 @@
                 </div>
             </div>
             {{-- box shadow actually close button too--}}
-            <label class="modal-backdrop" for="my_modal_6"></label>
+            <label class="modal-backdrop" for="my_modal_7"></label>
         </div>
     </div>
 
