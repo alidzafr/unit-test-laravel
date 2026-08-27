@@ -4,7 +4,9 @@ namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Database\Factories\UserFactory;
+use Illuminate\Database\Eloquent\Attributes\Scope;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Permission\Traits\HasRoles;
@@ -46,5 +48,16 @@ class User extends Authenticatable
             'email_verified_at' => 'datetime',
             'password' => 'hashed',
         ];
+    }
+
+    #[Scope]
+    // protected function filter(Builder $query, array $filters): void
+    public function scopeFilter(Builder $query, array $filters): void
+    {
+        $query->when(
+            $filters['search'] ?? false,
+            fn($query, $search) =>
+            $query->where('name', 'like', '%' . $search . '%')
+        );
     }
 }
