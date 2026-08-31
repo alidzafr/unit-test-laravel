@@ -115,33 +115,81 @@
             <div class="modal-box">
                 <form action="{{ route('users.store') }}" method="POST">
                     @csrf
-                    <h3 class="mb-3 text-lg font-bold">Mendaftarkan Pengguna Baru</h3>
-                    <input name="name" 
-                            type="text"
-                            value="{{ old('name') }}"
-                            class="input w-md @error('name') border-error @enderror" 
-                            placeholder="Type here">
-
-                    @error('name')
-                        <p class="mt-1 text-error">
-                            {{ $message }}
-                        </p>
+                    <h3 class="mb-3 text-lg font-bold">Menambahkan Pengguna Baru</h3>
+                    
+                    @if ($errors->any())
                         <script>
                             document.getElementById('my_modal_7').checked = true;
                         </script>
-                    @enderror
+                    @endif
 
-                    <legend class="fieldset-legend">Kategori</legend>
-                    <div class="flex items-center gap-4">
-                        <select name="category_id" class="select w-full rounded-xl @error('category_id') outline-2 outline-red-500 @enderror">
-                            <option disabled selected>Select existing category</option>
-                            <option>Select existing category</option>
-                            <option>Select existing</option>
-                            {{-- @foreach ($categories as $category)
-                                <option value="{{ $category->id }}">{{ $category->name }}</option>
-                            @endforeach --}}
-                        </select>
-                    </div>
+                    {{-- Name --}}
+                    <fieldset class="fieldset">
+                        <legend class="fieldset-legend">Nama Pengguna</legend>
+                        <input 
+                            name="name" type="text" value="{{ old('name') }}"
+                            class="input rounded-xl w-full @error('name') outline-2 outline-red-500 @enderror" 
+                            placeholder="Type here"
+                        />
+                        @error('name')
+                            <div class="label text-sm text-red-600">{{ $message }}</div>
+                        @enderror
+                    </fieldset>
+                    
+                    {{-- Email --}}
+                    <fieldset class="fieldset">
+                        <legend class="fieldset-legend">Email</legend>
+                        <input 
+                            name="email" type="email" value="{{ old('email') }}"
+                            class="input rounded-xl w-full @error('email') outline-2 outline-red-500 @enderror" 
+                            placeholder="Type here"
+                        />
+                        @error('email')
+                            <div class="label text-sm text-red-600">{{ $message }}</div>
+                        @enderror
+                    </fieldset>
+                    
+                    {{-- Password --}}
+                    <fieldset class="fieldset">
+                        <legend class="fieldset-legend">Password</legend>
+                        <input 
+                            name="password" type="password" value="{{ old('password') }}"
+                            class="input rounded-xl w-full @error('password') outline-2 outline-red-500 @enderror" 
+                            placeholder="Type here"
+                        />
+                        @error('password')
+                            <div class="label text-sm text-red-600">{{ $message }}</div>
+                        @enderror
+                    </fieldset>
+                    
+                    {{-- Password Confirmation--}}
+                    <fieldset class="fieldset">
+                        <legend class="fieldset-legend">Password Confirmation</legend>
+                        <input 
+                            name="password_confirmation" type="password" value="{{ old('password_confirmation') }}"
+                            class="input rounded-xl w-full @error('password') outline-2 outline-red-500 @enderror" 
+                            placeholder="Type here"
+                        />
+                        @error('password')
+                            <div class="label text-sm text-red-600">{{ $message }}</div>
+                        @enderror
+                    </fieldset>
+
+                    {{-- Role --}}
+                    <fieldset class="fieldset">
+                        <legend class="fieldset-legend">Roles</legend>
+                        <div class="flex items-center gap-4">
+                            <select name="role" class="select w-full rounded-xl @error('role') outline-2 outline-red-500 @enderror">
+                                <option disabled selected>Select Roles</option>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->name }}">{{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        @error('role')
+                            <div class="label text-sm text-red-600">{{ $message }}</div>
+                        @enderror
+                    </fieldset>
 
                     <div class="modal-action">
                         <button type="submit" class="btn btn-primary">
