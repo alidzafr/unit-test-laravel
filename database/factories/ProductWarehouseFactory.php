@@ -28,7 +28,7 @@ class ProductWarehouseFactory extends Factory
     {
         return [
             'warehouse_id' => Warehouse::factory(),
-            'product_id' => Product::factory(10),
+            'product_id' => Product::factory(),
             'stock' => fake()->numberBetween(0, 500),
         ];
     }
