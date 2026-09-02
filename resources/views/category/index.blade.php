@@ -34,11 +34,11 @@
             </div>
         </form>
             
-        @role('owner')
+        @can('categories.create')
             <a href="{{ route('categories.create') }}" class="btn btn-primary rounded-xl">
                 + Add Category
             </a>
-        @endrole
+        @endcan
         
     </div>
 
