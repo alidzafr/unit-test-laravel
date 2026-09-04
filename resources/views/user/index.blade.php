@@ -36,13 +36,9 @@
                 </div>
             </form>
             
-            {{-- @role('owner') --}}
-                {{-- <a href="{{ route('users.create') }}" class="btn btn-primary rounded-xl">
-                    + Tambahkan Produk
-                </a> --}}
+            @role('Super Admin')
                 <label for="my_modal_7" class="btn btn-primary rounded-xl">+ Tambahkan User</label>
-                
-            {{-- @endrole --}}
+            @endrole
             
         </div>
 
@@ -77,7 +73,7 @@
                                 </div>
                                 <ul tabindex="-1" class="menu text-sm dropdown-content bg-base-100 rounded-box border border-gray-200 z-1 w-36 shadow-md">
                                     <li>
-                                        <a href="{{ route('users.edit', $user->id) }}">
+                                        <a href="{{ route('users.edit', $user) }}">
                                             Edit
                                         </a>
                                     </li>
@@ -87,7 +83,7 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST">
+                                        <form action="{{ route('users.destroy', $user) }}" method="POST">
                                             @method('DELETE')
                                             @csrf
                                             <button>
