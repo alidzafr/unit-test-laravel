@@ -36,9 +36,11 @@ class UserPolicy
      */
     public function update(User $authUser, User $user): bool
     {
-        return $authUser->id === $user->id
-        || $authUser->hasRole('Super Admin');
+        if ($authUser->hasRole('Super Admin')) {
+            return true;
+        }
 
+        return $authUser->is($user);
     }
 
     /**
@@ -46,8 +48,11 @@ class UserPolicy
      */
     public function delete(User $authUser, User $user): bool
     {
-        return $authUser->id === $user->id
-        || $authUser->hasRole('Super Admin');
+        if ($authUser->hasRole('Super Admin')) {
+            return true;
+        }
+
+        return $authUser->is($user);
     }
 
     /**

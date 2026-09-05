@@ -7,6 +7,7 @@ use App\Http\Controllers\Api\ProductController as ApiProductCtr;
 use App\Http\Controllers\CustomersController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
+use App\Models\User;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/login', [AuthenticatedSessionController::class, 'viewLogin'])->name('login');
@@ -132,20 +133,22 @@ Route::middleware('auth')->group(function () {
         
     Route::post('users', [UserController::class, 'store'])
         ->name('users.store')
-        ->can('create', 'user');
+        ->can('create', User::class);
         
     Route::get('users/{user}/detail', [UserController::class, 'show'])
         ->name('users.show');
         
     Route::get('users/{user}/edit', [UserController::class, 'edit'])
         ->name('users.edit')
-        ->can('update', 'user');
+        ->middleware('can:update,user');
         
     Route::put('users/{user}/update', [UserController::class, 'update'])
-        ->name('users.update');
+        ->name('users.update')
+        ->middleware('can:update,user');
         
     Route::delete('users/{user}', [UserController::class, 'destroy'])
-        ->name('users.destroy');
+        ->name('users.destroy')
+        ->middleware('can:delete,user');
 });
 
 Route::get('/api/products/', [ApiProductCtr::class, 'index']);

@@ -80,7 +80,6 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        // WIP
         $validated = $request->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users,email',
@@ -91,9 +90,13 @@ class UserController extends Controller
         DB::beginTransaction();
 
         try {
-            if ($request->has('password')) {
-                $validated['password'] = bcrypt($validated['password']);
+
+            if ($request->filled('password')) {
+            $validated['password'] = Hash::make($request->password);
             }
+            $user->syncRoles($validated['role']);
+
+            unset($validated['role']);
             $user->update($validated);
 
             DB::commit();

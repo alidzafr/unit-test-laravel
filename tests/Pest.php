@@ -53,9 +53,21 @@ function createUser(): User
 }
 function createAdmin()
 {
-    $ownerRole = Role::create(['name' => 'owner']);
+    $roles = [
+        'Super Admin',
+        'Warehouse Manager',
+        'Warehouse Staff',
+        'Purchasing',
+        'Sales',
+    ];
+
+    foreach ($roles as $roleName) {
+        Role::firstOrCreate(['name' => $roleName]);
+    }
+
+    $adminRole = Role::where('name', 'Super Admin')->first();
 
     $admin = User::factory()->create();
-    $admin->assignRole($ownerRole);
+    $admin->assignRole($adminRole);
     return $admin;
 }
