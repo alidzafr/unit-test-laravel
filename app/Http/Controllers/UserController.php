@@ -133,7 +133,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        if (Auth::id() === $user->id ) {
+        if (Auth::id() === $user->id) {
             Auth::logout();
 
             user::destroy($user->id);
@@ -142,5 +142,12 @@ class UserController extends Controller
             user::destroy($user->id);
             return redirect()->route('users.index');
         }
+    }
+
+    public function setting()
+    {
+        $user = Auth::user();
+        $roles = Role::all();
+        return view('user.setting', compact('user', 'roles'));
     }
 }

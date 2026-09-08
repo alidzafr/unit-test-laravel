@@ -33,11 +33,11 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['permission:categories.create'])
         ->get('categories/create', [CategoryController::class, 'create'])
         ->name('categories.create');
-        
+
     Route::middleware(['permission:categories.create'])
         ->post('categories', [CategoryController::class, 'store'])
         ->name('categories.store');
-    
+
     Route::middleware(['permission:categories.edit'])
         ->get('categories/{category:slug}/edit', [CategoryController::class, 'edit'])
         ->name('categories.edit');
@@ -45,13 +45,13 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['permission:categories.edit'])
         ->put('categories/{category}/update', [CategoryController::class, 'update'])
         ->name('categories.update');
-    
+
     // Products
     Route::get('products', [ProductController::class, 'index'])
-    ->name('products.index');
+        ->name('products.index');
 
     Route::get('products/{product}/detail', [ProductController::class, 'show'])
-    ->name('products.show');
+        ->name('products.show');
 
     Route::middleware(['permission:products.create'])
         ->get('products/create', [ProductController::class, 'create'])
@@ -60,7 +60,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['permission:products.create'])
         ->post('products', [ProductController::class, 'store'])
         ->name('products.store');
-    
+
     Route::middleware(['permission:products.edit'])
         ->get('products/{product}/edit', [ProductController::class, 'edit'])
         ->name('products.edit');
@@ -72,11 +72,11 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['permission:products.delete'])
         ->delete('products/{product}', [ProductController::class, 'destroy'])
         ->name('products.destroy');
-        
+
     // Warehouse
     Route::get('warehouses', [WarehouseController::class, 'index'])
         ->name('warehouse.index');
-        
+
     Route::get('warehouses/{warehouse:slug}', [WarehouseController::class, 'show'])
         ->name('warehouse.show');
 
@@ -87,7 +87,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['permission:warehouses.create'])
         ->post('warehouses', [WarehouseController::class, 'store'])
         ->name('warehouse.store');
-    
+
     Route::middleware(['permission:warehouses.edit'])
         ->get('warehouses/{warehouse:slug}/edit', [WarehouseController::class, 'edit'])
         ->name('warehouse.edit');
@@ -99,11 +99,11 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['permission:warehouses.delete'])
         ->delete('warehouses/{warehouse}', [WarehouseController::class, 'destroy'])
         ->name('warehouse.destroy');
-    
+
     // Customers
     Route::get('customers', [CustomersController::class, 'index'])
         ->name('customers.index');
-        
+
     Route::get('customers/{customer:slug}', [CustomersController::class, 'show'])
         ->name('customers.show');
 
@@ -114,7 +114,7 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['permission:customers.create'])
         ->post('customers', [CustomersController::class, 'store'])
         ->name('customers.store');
-    
+
     Route::middleware(['permission:customers.edit'])
         ->get('customers/{customer:slug}/edit', [CustomersController::class, 'edit'])
         ->name('customers.edit');
@@ -126,29 +126,32 @@ Route::middleware('auth')->group(function () {
     Route::middleware(['permission:customers.delete'])
         ->delete('customers/{customer}', [CustomersController::class, 'destroy'])
         ->name('customers.destroy');
-    
+
     // Users
     Route::get('users', [UserController::class, 'index'])
         ->name('users.index');
-        
+
     Route::post('users', [UserController::class, 'store'])
         ->name('users.store')
         ->can('create', User::class);
-        
+
     Route::get('users/{user}/detail', [UserController::class, 'show'])
         ->name('users.show');
-        
+
     Route::get('users/{user}/edit', [UserController::class, 'edit'])
         ->name('users.edit')
         ->middleware('can:update,user');
-        
+
     Route::put('users/{user}/update', [UserController::class, 'update'])
         ->name('users.update')
         ->middleware('can:update,user');
-        
+
     Route::delete('users/{user}', [UserController::class, 'destroy'])
         ->name('users.destroy')
         ->middleware('can:delete,user');
+
+    Route::get('users/setting', [UserController::class, 'setting'])
+        ->name('users.setting');
 });
 
 Route::get('/api/products/', [ApiProductCtr::class, 'index']);
