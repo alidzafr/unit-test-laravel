@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -72,7 +73,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        return view('user.edit', compact('user'));
+        $roles = Role::all();
+        return view('user.edit', compact('user', 'roles'));
     }
 
     /**
@@ -82,18 +84,32 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users,email',
-            'password' => 'sometimes|string|min:8|confirmed',
             'role' => 'required|string|exists:roles,name'
         ]);
 
         DB::beginTransaction();
 
         try {
-
-            if ($request->filled('password')) {
-            $validated['password'] = Hash::make($request->password);
+            // Validate email unique or same with previous
+            if ($request['email'] == $user->email) {
+                $request->validate(['email' => 'required|string|email|max:255']);
+                $validated['email'] = $request['email'];
+            } else {
+                $request->validate(
+                    ['email' => 'required|string|email|max:255|unique:users,email'],
+                    ['email.unique' => 'Email sudah digunakan.']
+                );
+                $validated['email'] = $request['email'];
             }
+
+            // Validate Password
+            if ($request->filled('password')) {
+                $request->validate(
+                    ['password' => 'required|string|min:8|confirmed'],
+                );
+                $validated['password'] = Hash::make($request->password);
+            }
+
             $user->syncRoles($validated['role']);
 
             unset($validated['role']);
@@ -117,8 +133,14 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        user::destroy($user->id);
+        if (Auth::id() === $user->id ) {
+            Auth::logout();
 
-        return redirect()->route('users.index');
+            user::destroy($user->id);
+            return redirect('/login');
+        } else {
+            user::destroy($user->id);
+            return redirect()->route('users.index');
+        }
     }
 }
