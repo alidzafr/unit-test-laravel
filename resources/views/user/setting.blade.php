@@ -1,5 +1,14 @@
 <x-layout title="Pengaturan">
     <div class="space-y-6">
+            @if ($errors->any())
+                <div class="alert alert-error">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
         <div class="overflow-x-auto bg-white border border-gray-200 rounded-2xl shadow">
             <!-- name of each tab group should be unique -->
             <div class="tabs tabs-lift">
@@ -63,7 +72,7 @@
 
                         {{-- Save row --}}
                         <div class="my-6">
-                            <button type="submit" class="btn btn-primary mt-2">Save</button>
+                            <button type="submit" class="btn btn-primary rounded-xl">Save</button>
                         </div>
                     </form>
 
@@ -71,7 +80,7 @@
                     <div>
                         <h3 class="text-lg font-semibold text-gray-900">Hapus Akun</h3>
                         <p class="text-sm text-gray-500">Hapus akun anda beserta seluruh datanya.</p>
-                        <label for="my_modal_6" class="btn btn-soft btn-error rounded-xl">Hapus Akun</label>
+                        <label for="my_modal_6" class="my-6 btn btn-error rounded-xl">Hapus Akun</label>
                     </div>
 
                 </div>
@@ -90,6 +99,7 @@
                         @method("PUT")
                         @csrf
                         <input type="hidden" name="name" value="{{ $user->name }}">
+                        <input type="hidden" name="email" value="{{ $user->email }}">
                         <input type="hidden" name="role" value="{{ $user->getRoleNames()->first() }}">
 
                         {{-- Grid --}}
@@ -101,9 +111,6 @@
                                     class="input rounded-xl w-full @error('password') outline-2 outline-red-500 @enderror" 
                                     placeholder="Type here"
                                 />
-                                @error('password')
-                                    <div class="label text-sm text-red-600">{{ $message }}</div>
-                                @enderror
                             </fieldset>
                             
                             <fieldset class="fieldset">
@@ -113,9 +120,11 @@
                                     class="input rounded-xl w-full @error('password') outline-2 outline-red-500 @enderror" 
                                     placeholder="Type here"
                                 />
-                                @error('password')
-                                    <div class="label text-sm text-red-600">{{ $message }}</div>
-                                @enderror
+                                @if ($errors->has('password'))
+                                    @foreach ($errors->get('password') as $message)
+                                        <p class="text-red-500">{{ $message }}</p>
+                                    @endforeach
+                                @endif
                             </fieldset>
                         </div>
 

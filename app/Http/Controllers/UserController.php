@@ -84,32 +84,30 @@ class UserController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
             'role' => 'required|string|exists:roles,name'
         ]);
+
+        // Validate email unique or same with previous
+        if ($request['email'] != $user->email) {
+            $request->validate(
+                ['email' => 'required|string|email|max:255|unique:users,email'],
+                ['email.unique' => 'Email sudah digunakan.']
+            );
+            $validated['email'] = $request['email'];
+        }
+
+        // Validate Password
+        if ($request->filled('password')) {
+            $request->validate(
+                ['password' => 'required|string|min:8|confirmed'],
+            );
+            $validated['password'] = Hash::make($request->password);
+        }
 
         DB::beginTransaction();
 
         try {
-            // Validate email unique or same with previous
-            if ($request['email'] == $user->email) {
-                $request->validate(['email' => 'required|string|email|max:255']);
-                $validated['email'] = $request['email'];
-            } else {
-                $request->validate(
-                    ['email' => 'required|string|email|max:255|unique:users,email'],
-                    ['email.unique' => 'Email sudah digunakan.']
-                );
-                $validated['email'] = $request['email'];
-            }
-
-            // Validate Password
-            if ($request->filled('password')) {
-                $request->validate(
-                    ['password' => 'required|string|min:8|confirmed'],
-                );
-                $validated['password'] = Hash::make($request->password);
-            }
-
             $user->syncRoles($validated['role']);
 
             unset($validated['role']);
