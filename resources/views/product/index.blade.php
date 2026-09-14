@@ -74,11 +74,11 @@
             </a>
             @endif
             
-            @role('owner')
+            @can('products.create')
                 <a href="{{ route('products.create') }}" class="btn btn-primary rounded-xl">
                     + Tambahkan Produk
                 </a>
-            @endrole
+            @endcan
             
         </div>
 
@@ -131,21 +131,23 @@
                         </td>
                         <td>{{ $product->stock }}</td>
                         
-                        @role('owner')
                         <td>
                             <div class="dropdown dropdown-left dropdown-center">
                                 <div tabindex="0" role="button" class="hover:cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16"><path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/></svg>
                                 </div>
                                 <ul tabindex="-1" class="menu text-sm dropdown-content bg-base-100 rounded-box border border-gray-200 z-1 w-36 shadow-md">
-                                    <li>
-                                        <a href="{{ route('products.edit', $product->id) }}">
-                                            Edit
-                                        </a>
-                                    </li>
+                                    @can('products.show')
                                     <li>
                                         <a href="{{ route('products.show', $product->id) }}">
                                             View Detail
+                                        </a>
+                                    </li>
+                                    @endcan
+                                    @can('products.edit')
+                                    <li>
+                                        <a href="{{ route('products.edit', $product->id) }}">
+                                            Edit
                                         </a>
                                     </li>
                                     <li>
@@ -157,10 +159,10 @@
                                             </button>
                                         </form>
                                     </li>
+                                    @endcan
                                 </ul>
                             </div>
                         </td>
-                        @endrole
                     </tr>
                     
                     @empty

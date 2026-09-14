@@ -35,11 +35,11 @@
                 </div>
             </form>
                 
-            @role('owner')
+            @can('customers.create')
                 <a href="{{ route('customers.create') }}" class="btn btn-primary rounded-xl">
                     + Tambah Pelanggan
                 </a>
-            @endrole
+            @endcan
             
         </div>
 

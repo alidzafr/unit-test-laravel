@@ -65,23 +65,26 @@
                         <td>{{ $user->email }}</td>
                         <td>{{ $user->getRoleNames()->first() }}</td>
                         
-                        {{-- @role('owner') --}}
                         <td>
                             <div class="dropdown dropdown-left dropdown-center">
                                 <div tabindex="0" role="button" class="hover:cursor-pointer">
                                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-three-dots-vertical" viewBox="0 0 16 16"><path d="M9.5 13a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0m0-5a1.5 1.5 0 1 1-3 0 1.5 1.5 0 0 1 3 0"/></svg>
                                 </div>
                                 <ul tabindex="-1" class="menu text-sm dropdown-content bg-base-100 rounded-box border border-gray-200 z-1 w-36 shadow-md">
-                                    <li>
-                                        <a href="{{ route('users.edit', $user) }}">
-                                            Edit
-                                        </a>
-                                    </li>
+                                    
                                     <li>
                                         <a href="{{ route('users.show', $user->id) }}">
                                             View Detail
                                         </a>
                                     </li>
+                                    @can('update', $user)
+                                    <li>
+                                        <a href="{{ route('users.edit', $user) }}">
+                                            Edit
+                                        </a>
+                                    </li>
+                                    @endcan
+                                    @can('delete', $user)
                                     <li>
                                         <form action="{{ route('users.destroy', $user) }}" method="POST">
                                             @method('DELETE')
@@ -91,10 +94,10 @@
                                             </button>
                                         </form>
                                     </li>
+                                    @endcan
                                 </ul>
                             </div>
                         </td>
-                        {{-- @endrole --}}
                     </tr>
                     
                     @empty

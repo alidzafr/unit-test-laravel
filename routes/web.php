@@ -77,26 +77,27 @@ Route::middleware('auth')->group(function () {
     Route::get('warehouses', [WarehouseController::class, 'index'])
         ->name('warehouse.index');
 
-    Route::get('warehouses/{warehouse:slug}', [WarehouseController::class, 'show'])
+    Route::middleware(['permission:warehouse.show'])
+        ->get('warehouses/{warehouse:slug}', [WarehouseController::class, 'show'])
         ->name('warehouse.show');
 
-    Route::middleware(['permission:warehouses.create'])
+    Route::middleware(['permission:warehouse.create'])
         ->get('warehouses/create', [WarehouseController::class, 'create'])
         ->name('warehouse.create');
 
-    Route::middleware(['permission:warehouses.create'])
+    Route::middleware(['permission:warehouse.create'])
         ->post('warehouses', [WarehouseController::class, 'store'])
         ->name('warehouse.store');
 
-    Route::middleware(['permission:warehouses.edit'])
+    Route::middleware(['permission:warehouse.edit'])
         ->get('warehouses/{warehouse:slug}/edit', [WarehouseController::class, 'edit'])
         ->name('warehouse.edit');
 
-    Route::middleware(['permission:warehouses.edit'])
+    Route::middleware(['permission:warehouse.edit'])
         ->put('warehouses/{warehouse}/update', [WarehouseController::class, 'update'])
         ->name('warehouse.update');
 
-    Route::middleware(['permission:warehouses.delete'])
+    Route::middleware(['permission:warehouse.delete'])
         ->delete('warehouses/{warehouse}', [WarehouseController::class, 'destroy'])
         ->name('warehouse.destroy');
 

@@ -83,11 +83,11 @@
                 </div>
             </form>
                 
-            @role('owner')
+            @can('products.create')
                 <a href="{{ route('products.create') }}" class="btn btn-primary rounded-xl">
                     + Add Product
                 </a>
-            @endrole
+            @endcan
             
         </div>
         
