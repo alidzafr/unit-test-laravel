@@ -5,6 +5,7 @@ use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\Api\ProductController as ApiProductCtr;
 use App\Http\Controllers\CustomersController;
+use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WarehouseController;
 use App\Models\User;
@@ -153,6 +154,10 @@ Route::middleware('auth')->group(function () {
 
     Route::get('users/setting', [UserController::class, 'setting'])
         ->name('users.setting');
+});
+
+Route::middleware(['auth', 'role:Super Admin'])->group(function () {
+    Route::resource('roles', RoleController::class);
 });
 
 Route::get('/api/products/', [ApiProductCtr::class, 'index']);
