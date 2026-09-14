@@ -34,9 +34,11 @@ class RoleController extends Controller
             'name' =>$validated['name']
         ]);
 
-        $role->syncPermissions(
-            $validated['permissions'] ?? []
-        );
+        $permissionNames = Permission::whereIn('id', $validated['permissions'] ?? [])
+            ->pluck('name')
+            ->all();
+
+        $role->syncPermissions($permissionNames);
 
         return redirect()
             ->route('roles.index')
@@ -55,7 +57,7 @@ class RoleController extends Controller
     public function update(Request $request, Role $role)
     {
         $validated = $request->validate([
-            'name'  => ['required', 'string', 'max:255', 'unique:roles,name' .$role->id,],
+            'name'  => ['required', 'string', 'max:255', 'unique:roles,name,' . $role->id,],
             'permissions' => ['nullable', 'array'],
             'permissions.*' => ['exists:permissions,id'],
         ]);
@@ -64,9 +66,11 @@ class RoleController extends Controller
             'name' => $validated['name']
         ]);
 
-        $role->syncPermissions(
-            $validated['permissions'] ?? []
-        );
+        $permissionNames = Permission::whereIn('id', $validated['permissions'] ?? [])
+            ->pluck('name')
+            ->all();
+
+        $role->syncPermissions($permissionNames);
 
         return redirect()
             ->route('roles.index')
