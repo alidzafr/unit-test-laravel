@@ -25,11 +25,44 @@
           </h2>
         </div>
 
-        <div class="flex-none">
-          <button class="btn btn-square btn-ghost">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" class="inline-block h-5 w-5 stroke-current"> <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 12h.01M12 12h.01M19 12h.01M6 12a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0zm7 0a1 1 0 11-2 0 1 1 0 012 0z"></path> </svg>
-          </button>
+        <div class="flex flex-col mr-4 text-right">
+          <span class="font-bold">
+            {{ Auth::user()->name }}
+          </span>
+          <span class="text-xs">
+            {{ Auth::user()->getRoleNames()->first() }}
+          </span>
         </div>
+        <div class="flex-none">
+          <div class="dropdown dropdown-end">
+            <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
+              <div class="w-10 rounded-full">
+                <img
+                  alt="Tailwind CSS Navbar component"
+                  src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
+              </div>
+            </div>
+            <ul
+              tabindex="-1"
+              class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-42 p-2 shadow">
+              <li>
+                <a href="{{ route('users.setting') }}">Settings</a>
+              </li>
+              <li>
+                @if (Route::has('logout'))
+                    <form method="POST" action="/logout">
+                        @csrf
+                        <button type="submit" class="hover:cursor-pointer">
+                            Logout
+                        </button>
+                    </form>
+                @endif
+              </li>
+            </ul>
+          </div>
+        </div>
+
+
       </header>
       
       <!-- Page content here -->
